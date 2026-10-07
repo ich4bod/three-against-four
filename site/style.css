@@ -35,16 +35,23 @@ section { margin-top: 28px; }
 .marker.three { fill: #b94b40; }
 .marker.four { fill: #245aa4; }
 .marker[data-active="true"] { stroke: #24384a; stroke-width: 3; }
-.inspection {
+.inspection, .buttons {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 }
-label, input { min-height: 44px; }
+label, input, select, button { min-height: 44px; }
 label { display: inline-flex; align-items: center; }
 input[type="range"] { width: min(100%, 280px); accent-color: #8f3f15; }
+.sound-toggle { gap: 8px; }
+input[type="checkbox"] { width: 44px; height: 44px; margin: 0; accent-color: #8f3f15; }
+select, button { font: inherit; color: inherit; }
+button { padding: 6px 12px; }
+button:disabled { opacity: .55; }
 :focus-visible { outline: 3px solid #8f3f15; outline-offset: 3px; }
+details { margin-top: 12px; }
+details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
 footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; }
 a { color: #24384a; }
 @media (max-width: 600px) { main { padding: 16px; } }

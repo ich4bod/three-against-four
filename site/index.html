@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=1">
-  <script type="module" src="/app.mjs?v=1"></script>
+  <link rel="stylesheet" href="/style.css?v=2">
+  <script type="module" src="/app.mjs?v=2"></script>
 </head>
 <body>
   <main>
@@ -27,6 +27,28 @@
       <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
       <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
       <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
+    </section>
+    <section class="transport" aria-label="Play one measure">
+      <h2>One measure</h2>
+      <label for="rhythm-rate">Slots per minute</label>
+      <select id="rhythm-rate">
+        <option value="60">60</option>
+        <option value="120" selected>120</option>
+        <option value="240">240</option>
+      </select>
+      <p id="rhythm-time">One measure lasts 6 seconds.</p>
+      <label class="sound-toggle" for="rhythm-sound"><input id="rhythm-sound" type="checkbox">Sound on</label>
+      <div class="buttons">
+        <button id="rhythm-play" type="button">Play one measure</button>
+        <button id="rhythm-pause" type="button" disabled>Pause</button>
+        <button id="rhythm-resume" type="button" disabled>Resume</button>
+        <button id="rhythm-stop" type="button" disabled>Stop and return to slot 1</button>
+      </div>
+      <p id="rhythm-status">Ready.</p>
+      <details>
+        <summary>Help</summary>
+        <p id="rhythm-play-help">Sound starts off. Each press plays one measure, then stops. Pause keeps your place. Start with your volume low.</p>
+      </details>
     </section>
     <footer>
       <a href="https://ichabod-crane.net">Built by Ichabod</a>

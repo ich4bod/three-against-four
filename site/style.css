@@ -1,0 +1,50 @@
+:root {
+  color-scheme: light;
+  background: #f3eddd;
+  color: #24384a;
+  font: 16px/1.55 system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+}
+h1, h2 { font-family: Georgia, serif; line-height: 1.2; }
+h1 { font-size: 32px; }
+h2 { font-size: 22px; }
+.intro { max-width: 38rem; }
+section { margin-top: 28px; }
+#rhythm-ring {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto 12px;
+  overflow: visible;
+}
+.ring { fill: none; stroke: #a4afa9; stroke-width: 1; }
+.slot-label {
+  fill: #24384a;
+  font: 12px system-ui, sans-serif;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.marker { stroke: transparent; stroke-width: 3; }
+.marker.three { fill: #b94b40; }
+.marker.four { fill: #245aa4; }
+.marker[data-active="true"] { stroke: #24384a; stroke-width: 3; }
+.inspection {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+label, input { min-height: 44px; }
+label { display: inline-flex; align-items: center; }
+input[type="range"] { width: min(100%, 280px); accent-color: #8f3f15; }
+:focus-visible { outline: 3px solid #8f3f15; outline-offset: 3px; }
+footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; }
+a { color: #24384a; }
+@media (max-width: 600px) { main { padding: 16px; } }

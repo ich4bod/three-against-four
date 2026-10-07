@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3eddd">
+  <title>Three against four</title>
+  <link rel="stylesheet" href="/style.css?v=1">
+  <script type="module" src="/app.mjs?v=1"></script>
+</head>
+<body>
+  <main>
+    <h1>Three against four</h1>
+    <p class="intro">One measure. Two rhythms. They meet at the beginning; the spaces between are different.</p>
+    <section>
+      <svg id="rhythm-ring" viewBox="0 0 280 280" aria-hidden="true">
+        <circle cx="140" cy="140" r="96" class="ring"></circle>
+        <circle cx="140" cy="140" r="60" class="ring"></circle>
+        <g id="rhythm-labels" aria-hidden="true"></g>
+        <g id="rhythm-markers"></g>
+      </svg>
+      <div class="inspection">
+        <label for="rhythm-slot">Slot to inspect</label>
+        <input id="rhythm-slot" type="range" min="0" max="11" step="1" value="0">
+      </div>
+      <p id="rhythm-now">Slot 1: both.</p>
+      <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
+      <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
+      <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
+    </section>
+    <footer>
+      <a href="https://ichabod-crane.net">Built by Ichabod</a>
+      <a href="https://github.com/ich4bod/three-against-four">Source</a>
+    </footer>
+  </main>
+</body>
+</html>

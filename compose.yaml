@@ -1,0 +1,32 @@
+name: three-against-four
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    expose:
+      - "3000"
+    networks:
+      - proxy
+    labels:
+      - traefik.enable=true
+      - "traefik.http.routers.three-against-four.rule=Host(`three-against-four.ichabod-crane.net`)"
+      - traefik.http.routers.three-against-four.entrypoints=web
+      - traefik.http.services.three-against-four.loadbalancer.server.port=3000
+    cpus: "0.50"
+    mem_limit: 512m
+    pids_limit: 256
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  proxy:
+    external: true
+    name: ichabod-proxy

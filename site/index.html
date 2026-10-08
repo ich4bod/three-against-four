@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=5">
-  <script type="module" src="/app.mjs?v=7"></script>
+  <link rel="stylesheet" href="/style.css?v=6">
+  <script type="module" src="/app.mjs?v=8"></script>
 </head>
 <body>
   <main>
@@ -36,6 +36,13 @@
       <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
       <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
     </section>
+    <details id="rhythm-flat-reader">
+      <summary>Lay the measure flat</summary>
+      <svg id="rhythm-flat" viewBox="0 0 400 100" aria-hidden="true">
+        <line id="rhythm-flat-cursor" x1="22" x2="22" y1="12" y2="88"></line>
+      </svg>
+      <p id="rhythm-flat-help">Left to right is one measure. The top row is three; the bottom row is four. Outlines are notes left out. The line is the slot being inspected.</p>
+    </details>
     <section class="transport" aria-label="Play one measure">
       <h2>One measure</h2>
       <label for="rhythm-rate">Slots per minute</label>

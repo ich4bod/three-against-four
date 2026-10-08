@@ -3,6 +3,8 @@ import { THREE_SLOTS, FOUR_SLOTS, DEFAULT_PATTERN, patternSlots, patternEvents, 
 const svg = 'http://www.w3.org/2000/svg';
 const labels = document.querySelector('#rhythm-labels');
 const markers = document.querySelector('#rhythm-markers');
+const flat = document.querySelector('#rhythm-flat');
+const flatCursor = document.querySelector('#rhythm-flat-cursor');
 const slider = document.querySelector('#rhythm-slot');
 const reader = document.querySelector('#rhythm-now');
 const previousEventButton = document.querySelector('#rhythm-previous-event');
@@ -68,7 +70,14 @@ for (const [track, slots, radius, markerRadius, color] of [
     marker.dataset.index = index;
     marker.dataset.baseSlot = slot;
     markers.append(marker);
-    markerNodes.push(marker);
+    const flatNote = document.createElementNS(svg, 'rect');
+    flatNote.id = `rhythm-flat-${track}-${index}`;
+    flatNote.setAttribute('y', track === 'a' ? 20 : 60);
+    flatNote.setAttribute('width', 20);
+    flatNote.setAttribute('height', 20);
+    flatNote.setAttribute('class', `flat-note ${color}`);
+    flat.insertBefore(flatNote, flatCursor);
+    markerNodes.push({ marker, flatNote });
   });
 }
 
@@ -81,9 +90,11 @@ function inspect() {
   previousEventButton.disabled = notes.length === 0;
   nextEventButton.disabled = notes.length === 0;
   nextMeetingButton.disabled = meetings.length === 0;
-  for (const marker of markerNodes) {
+  for (const { marker } of markerNodes) {
     marker.dataset.active = String(Number(marker.dataset.slot) === slot);
   }
+  flatCursor.setAttribute('x1', 22 + 31 * slot);
+  flatCursor.setAttribute('x2', 22 + 31 * slot);
 }
 
 function walkSlots() {
@@ -120,7 +131,7 @@ function renderPattern() {
   const active = patternSlots(pattern);
   document.querySelector('#rhythm-a-slots').textContent = `Three plays slots: ${active.three.length ? active.three.map(slot => slot + 1).join(', ') : 'none'}.`;
   document.querySelector('#rhythm-b-slots').textContent = `Four plays slots: ${active.four.length ? active.four.map(slot => slot + 1).join(', ') : 'none'}.`;
-  for (const marker of markerNodes) {
+  for (const { marker, flatNote } of markerNodes) {
     const track = marker.dataset.track;
     const index = Number(marker.dataset.index);
     const baseSlot = Number(marker.dataset.baseSlot);
@@ -131,6 +142,8 @@ function renderPattern() {
     marker.setAttribute('cy', position.y.toFixed(6));
     marker.dataset.slot = slot;
     marker.dataset.muted = String(!enabled);
+    flatNote.setAttribute('x', 12 + 31 * slot);
+    flatNote.dataset.enabled = String(enabled);
   }
   for (const track of ['a', 'b']) {
     pattern[track].forEach((checked, index) => {

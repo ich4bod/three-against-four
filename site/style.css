@@ -24,6 +24,18 @@ section { margin-top: 28px; }
   margin: 0 auto 12px;
   overflow: visible;
 }
+#rhythm-flat {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 0 auto;
+  background: #fffaf0;
+}
+#rhythm-flat .flat-note.three { fill: #b94b40; }
+#rhythm-flat .flat-note.four { fill: #245aa4; }
+#rhythm-flat .flat-note[data-enabled="false"] { fill: none; stroke: #a4afa9; }
+#rhythm-flat-cursor { stroke: #24384a; stroke-width: 1; }
 .ring { fill: none; stroke: #a4afa9; stroke-width: 1; }
 .slot-label {
   fill: #24384a;

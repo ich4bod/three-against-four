@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=2">
-  <script type="module" src="/app.mjs?v=2"></script>
+  <link rel="stylesheet" href="/style.css?v=3">
+  <script type="module" src="/app.mjs?v=3"></script>
 </head>
 <body>
   <main>
@@ -48,6 +48,44 @@
       <details>
         <summary>Help</summary>
         <p id="rhythm-play-help">Sound starts off. Each press plays one measure, then stops. Pause keeps your place. Start with your volume low.</p>
+      </details>
+    </section>
+    <section class="editor-section">
+      <details id="rhythm-editor">
+        <summary>Change the pattern</summary>
+        <fieldset>
+          <legend>Three notes</legend>
+          <label for="rhythm-a-note-0"><input id="rhythm-a-note-0" type="checkbox" checked>Three note 1</label>
+          <label for="rhythm-a-note-1"><input id="rhythm-a-note-1" type="checkbox" checked>Three note 2</label>
+          <label for="rhythm-a-note-2"><input id="rhythm-a-note-2" type="checkbox" checked>Three note 3</label>
+        </fieldset>
+        <fieldset>
+          <legend>Four notes</legend>
+          <label for="rhythm-b-note-0"><input id="rhythm-b-note-0" type="checkbox" checked>Four note 1</label>
+          <label for="rhythm-b-note-1"><input id="rhythm-b-note-1" type="checkbox" checked>Four note 2</label>
+          <label for="rhythm-b-note-2"><input id="rhythm-b-note-2" type="checkbox" checked>Four note 3</label>
+          <label for="rhythm-b-note-3"><input id="rhythm-b-note-3" type="checkbox" checked>Four note 4</label>
+        </fieldset>
+        <label for="rhythm-offset">Move the four-note rhythm</label>
+        <select id="rhythm-offset">
+          <option value="0">0 slots</option>
+          <option value="1">1 slot</option>
+          <option value="2">2 slots</option>
+          <option value="3">3 slots</option>
+          <option value="4">4 slots</option>
+          <option value="5">5 slots</option>
+          <option value="6">6 slots</option>
+          <option value="7">7 slots</option>
+          <option value="8">8 slots</option>
+          <option value="9">9 slots</option>
+          <option value="10">10 slots</option>
+          <option value="11">11 slots</option>
+        </select>
+        <p id="rhythm-edit-help">Unchecked notes leave a silence. Moving four shifts all its notes together; three stays put.</p>
+        <div class="buttons">
+          <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>
+          <button id="rhythm-reset-pattern" type="button">Restore all notes and no shift</button>
+        </div>
       </details>
     </section>
     <footer>

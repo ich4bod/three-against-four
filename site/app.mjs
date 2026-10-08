@@ -1,4 +1,4 @@
-import { THREE_SLOTS, FOUR_SLOTS, describeSlot, markerPosition } from './model.mjs?v=2';
+import { THREE_SLOTS, FOUR_SLOTS, DEFAULT_PATTERN, patternSlots, patternEvents, describeSlot, markerPosition } from './model.mjs?v=3';
 
 const svg = 'http://www.w3.org/2000/svg';
 const labels = document.querySelector('#rhythm-labels');
@@ -13,7 +13,13 @@ const pauseButton = document.querySelector('#rhythm-pause');
 const resumeButton = document.querySelector('#rhythm-resume');
 const stopButton = document.querySelector('#rhythm-stop');
 const status = document.querySelector('#rhythm-status');
+const editor = document.querySelector('#rhythm-editor');
+const offsetControl = document.querySelector('#rhythm-offset');
+const undoButton = document.querySelector('#rhythm-undo');
+const resetButton = document.querySelector('#rhythm-reset-pattern');
 const markerNodes = [];
+let pattern = { a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset };
+const history = [];
 let audioContext;
 let audioBuffer;
 let source;
@@ -41,14 +47,13 @@ for (const [track, slots, radius, markerRadius, color] of [
   ['b', FOUR_SLOTS, 60, 7, 'four'],
 ]) {
   slots.forEach((slot, index) => {
-    const { x, y } = markerPosition(radius, slot);
     const marker = document.createElementNS(svg, 'circle');
     marker.id = `rhythm-${track}-${index}`;
-    marker.setAttribute('cx', x.toFixed(6));
-    marker.setAttribute('cy', y.toFixed(6));
     marker.setAttribute('r', markerRadius);
     marker.setAttribute('class', `marker ${color}`);
-    marker.setAttribute('data-slot', slot);
+    marker.dataset.track = track;
+    marker.dataset.index = index;
+    marker.dataset.baseSlot = slot;
     markers.append(marker);
     markerNodes.push(marker);
   });
@@ -56,10 +61,57 @@ for (const [track, slots, radius, markerRadius, color] of [
 
 function inspect() {
   const slot = Number(slider.value);
-  reader.textContent = describeSlot(slot);
+  reader.textContent = describeSlot(slot, pattern);
   for (const marker of markerNodes) {
     marker.dataset.active = String(Number(marker.dataset.slot) === slot);
   }
+}
+
+function renderPattern() {
+  const active = patternSlots(pattern);
+  document.querySelector('#rhythm-a-slots').textContent = `Three plays slots: ${active.three.length ? active.three.map(slot => slot + 1).join(', ') : 'none'}.`;
+  document.querySelector('#rhythm-b-slots').textContent = `Four plays slots: ${active.four.length ? active.four.map(slot => slot + 1).join(', ') : 'none'}.`;
+  for (const marker of markerNodes) {
+    const track = marker.dataset.track;
+    const index = Number(marker.dataset.index);
+    const baseSlot = Number(marker.dataset.baseSlot);
+    const enabled = pattern[track][index];
+    const slot = track === 'a' ? baseSlot : (baseSlot + pattern.offset) % 12;
+    const position = markerPosition(track === 'a' ? 96 : 60, slot);
+    marker.setAttribute('cx', position.x.toFixed(6));
+    marker.setAttribute('cy', position.y.toFixed(6));
+    marker.dataset.slot = slot;
+    marker.dataset.muted = String(!enabled);
+  }
+  for (const track of ['a', 'b']) {
+    pattern[track].forEach((checked, index) => {
+      document.querySelector(`#rhythm-${track}-note-${index}`).checked = checked;
+    });
+  }
+  offsetControl.value = String(pattern.offset);
+  undoButton.disabled = history.length === 0;
+  inspect();
+}
+
+function samePattern(left, right) {
+  return left.offset === right.offset && left.a.every((value, index) => value === right.a[index]) && left.b.every((value, index) => value === right.b[index]);
+}
+
+function commitPattern(next) {
+  if (samePattern(pattern, next)) return;
+  history.push({ a: [...pattern.a], b: [...pattern.b], offset: pattern.offset });
+  if (history.length > 24) history.shift();
+  if (playing || paused) stopTransport({ message: 'Stopped.' });
+  pattern = next;
+  renderPattern();
+}
+
+function readControls() {
+  commitPattern({
+    a: pattern.a.map((_, index) => document.querySelector(`#rhythm-a-note-${index}`).checked),
+    b: pattern.b.map((_, index) => document.querySelector(`#rhythm-b-note-${index}`).checked),
+    offset: Number(offsetControl.value),
+  });
 }
 
 function setButtons() {
@@ -123,8 +175,9 @@ function paintClock() {
 function makeBuffer(context, duration, step) {
   const buffer = context.createBuffer(1, Math.round(duration * context.sampleRate), context.sampleRate);
   const samples = buffer.getChannelData(0);
-  for (const [frequency, slots] of [[660, THREE_SLOTS], [330, FOUR_SLOTS]]) {
-    for (const slot of slots) {
+  for (const [frequency, track] of [[660, 'three'], [330, 'four']]) {
+    for (const { slot, three, four } of patternEvents(pattern)) {
+      if (track === 'three' ? !three : !four) continue;
       const start = slot * step;
       const first = Math.max(0, Math.ceil(start * context.sampleRate));
       const last = Math.min(samples.length, Math.ceil((start + 0.035) * context.sampleRate));
@@ -193,6 +246,17 @@ async function resume() {
   await startAudio(elapsedBeforePause, token);
 }
 
+editor.addEventListener('change', event => {
+  if (event.target.matches('input[type="checkbox"], #rhythm-offset')) readControls();
+});
+undoButton.addEventListener('click', () => {
+  if (!history.length) return;
+  if (playing || paused) stopTransport({ message: 'Stopped.' });
+  pattern = history.pop();
+  renderPattern();
+});
+resetButton.addEventListener('click', () => commitPattern({ a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset }));
+
 slider.addEventListener('input', () => {
   const selectedSlot = slider.value;
   stopTransport({ message: 'Stopped.' });
@@ -222,5 +286,5 @@ stopButton.addEventListener('click', () => stopTransport());
 document.addEventListener('visibilitychange', () => {
   if (document.hidden && playing) pauseButton.click();
 });
-inspect();
+renderPattern();
 setButtons();

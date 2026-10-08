@@ -17,6 +17,12 @@ const editor = document.querySelector('#rhythm-editor');
 const offsetControl = document.querySelector('#rhythm-offset');
 const undoButton = document.querySelector('#rhythm-undo');
 const resetButton = document.querySelector('#rhythm-reset-pattern');
+const keepButton = document.querySelector('#rhythm-keep');
+const returnButton = document.querySelector('#rhythm-return');
+const forgetButton = document.querySelector('#rhythm-forget');
+const keptEmpty = document.querySelector('#rhythm-kept-empty');
+const keptBody = document.querySelector('#rhythm-kept-body');
+let keptPattern;
 const markerNodes = [];
 let pattern = { a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset };
 const history = [];
@@ -90,6 +96,7 @@ function renderPattern() {
   }
   offsetControl.value = String(pattern.offset);
   undoButton.disabled = history.length === 0;
+  renderKeptPattern();
   inspect();
 }
 
@@ -97,11 +104,35 @@ function samePattern(left, right) {
   return left.offset === right.offset && left.a.every((value, index) => value === right.a[index]) && left.b.every((value, index) => value === right.b[index]);
 }
 
-function commitPattern(next) {
+function clonePattern(value) {
+  return { a: [...value.a], b: [...value.b], offset: value.offset };
+}
+
+function slotList(slots) {
+  return slots.length ? slots.map(slot => slot + 1).join(', ') : 'none';
+}
+
+function renderKeptPattern() {
+  keptEmpty.hidden = Boolean(keptPattern);
+  keptBody.hidden = !keptPattern;
+  returnButton.disabled = !keptPattern || samePattern(pattern, keptPattern);
+  forgetButton.disabled = !keptPattern;
+  if (!keptPattern) return;
+  const current = patternSlots(pattern);
+  const kept = patternSlots(keptPattern);
+  for (const [track, name, label] of [['a', 'three', 'Three'], ['b', 'four', 'Four']]) {
+    document.querySelector(`#rhythm-kept-${track}`).textContent = `Kept ${name}: ${slotList(kept[name])}.`;
+    const currentOnly = current[name].filter(slot => !kept[name].includes(slot));
+    const keptOnly = kept[name].filter(slot => !current[name].includes(slot));
+    document.querySelector(`#rhythm-compare-${track}`).textContent = `${label} · current only: ${slotList(currentOnly)} · kept only: ${slotList(keptOnly)}.`;
+  }
+}
+
+function commitPattern(next, { preserveSlot = false } = {}) {
   if (samePattern(pattern, next)) return;
   history.push({ a: [...pattern.a], b: [...pattern.b], offset: pattern.offset });
   if (history.length > 24) history.shift();
-  if (playing || paused) stopTransport({ message: 'Stopped.' });
+  if (playing || paused) stopTransport({ reset: !preserveSlot, message: 'Stopped.' });
   pattern = next;
   renderPattern();
 }
@@ -256,6 +287,19 @@ undoButton.addEventListener('click', () => {
   renderPattern();
 });
 resetButton.addEventListener('click', () => commitPattern({ a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset }));
+
+keepButton.addEventListener('click', () => {
+  keptPattern = clonePattern(pattern);
+  renderKeptPattern();
+});
+returnButton.addEventListener('click', () => {
+  if (!keptPattern || samePattern(pattern, keptPattern)) return;
+  commitPattern(clonePattern(keptPattern), { preserveSlot: true });
+});
+forgetButton.addEventListener('click', () => {
+  keptPattern = undefined;
+  renderKeptPattern();
+});
 
 slider.addEventListener('input', () => {
   const selectedSlot = slider.value;

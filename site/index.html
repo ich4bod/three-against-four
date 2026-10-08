@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=3">
-  <script type="module" src="/app.mjs?v=3"></script>
+  <link rel="stylesheet" href="/style.css?v=4">
+  <script type="module" src="/app.mjs?v=4"></script>
 </head>
 <body>
   <main>
@@ -87,6 +87,22 @@
           <button id="rhythm-reset-pattern" type="button">Restore all notes and no shift</button>
         </div>
       </details>
+    </section>
+    <section class="kept-section">
+      <h2>Keep a rhythm</h2>
+      <div class="buttons">
+        <button id="rhythm-keep" type="button">Keep this pattern</button>
+        <button id="rhythm-return" type="button" disabled>Return to kept pattern</button>
+        <button id="rhythm-forget" type="button" disabled>Forget kept pattern</button>
+      </div>
+      <p id="rhythm-kept-empty">No pattern kept.</p>
+      <div id="rhythm-kept-body" hidden>
+        <p id="rhythm-kept-a"></p>
+        <p id="rhythm-kept-b"></p>
+        <p id="rhythm-compare-a"></p>
+        <p id="rhythm-compare-b"></p>
+      </div>
+      <p id="rhythm-keep-help">The kept pattern does not change when you edit. Return changes the pattern, not the tempo; Undo brings your experiment back.</p>
     </section>
     <footer>
       <a href="https://ichabod-crane.net">Built by Ichabod</a>

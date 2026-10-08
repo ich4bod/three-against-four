@@ -5,6 +5,11 @@ const labels = document.querySelector('#rhythm-labels');
 const markers = document.querySelector('#rhythm-markers');
 const slider = document.querySelector('#rhythm-slot');
 const reader = document.querySelector('#rhythm-now');
+const previousEventButton = document.querySelector('#rhythm-previous-event');
+const nextEventButton = document.querySelector('#rhythm-next-event');
+const nextMeetingButton = document.querySelector('#rhythm-next-meeting');
+const eventsReader = document.querySelector('#rhythm-events');
+const meetingsReader = document.querySelector('#rhythm-meetings');
 const rateControl = document.querySelector('#rhythm-rate');
 const timeReader = document.querySelector('#rhythm-time');
 const soundControl = document.querySelector('#rhythm-sound');
@@ -70,9 +75,45 @@ for (const [track, slots, radius, markerRadius, color] of [
 function inspect() {
   const slot = Number(slider.value);
   reader.textContent = describeSlot(slot, pattern);
+  const { notes, meetings } = walkSlots();
+  eventsReader.textContent = `Note slots: ${slotList(notes)}.`;
+  meetingsReader.textContent = `Together slots: ${slotList(meetings)}.`;
+  previousEventButton.disabled = notes.length === 0;
+  nextEventButton.disabled = notes.length === 0;
+  nextMeetingButton.disabled = meetings.length === 0;
   for (const marker of markerNodes) {
     marker.dataset.active = String(Number(marker.dataset.slot) === slot);
   }
+}
+
+function walkSlots() {
+  const events = patternEvents(pattern);
+  return {
+    notes: events.filter(event => event.three || event.four).map(event => event.slot),
+    meetings: events.filter(event => event.three && event.four).map(event => event.slot),
+  };
+}
+
+function navigateSlot(slots, current, direction) {
+  if (!slots.length) return current;
+  if (direction === 'previous') {
+    return slots.findLast(slot => slot < current) ?? slots[slots.length - 1];
+  }
+  return slots.find(slot => slot > current) ?? slots[0];
+}
+
+function changeInspection(selectedSlot) {
+  stopTransport({ message: 'Stopped.' });
+  slider.value = String(selectedSlot);
+  inspect();
+}
+
+function walkInspection(kind, direction) {
+  const slots = walkSlots()[kind];
+  if (!slots.length) return;
+  const current = Number(slider.value);
+  const selectedSlot = navigateSlot(slots, current, direction);
+  if (selectedSlot !== current) changeInspection(selectedSlot);
 }
 
 function renderPattern() {
@@ -304,12 +345,10 @@ forgetButton.addEventListener('click', () => {
   renderKeptPattern();
 });
 
-slider.addEventListener('input', () => {
-  const selectedSlot = slider.value;
-  stopTransport({ message: 'Stopped.' });
-  slider.value = selectedSlot;
-  inspect();
-});
+slider.addEventListener('input', () => changeInspection(slider.value));
+previousEventButton.addEventListener('click', () => walkInspection('notes', 'previous'));
+nextEventButton.addEventListener('click', () => walkInspection('notes', 'next'));
+nextMeetingButton.addEventListener('click', () => walkInspection('meetings', 'next'));
 rateControl.addEventListener('change', () => {
   stopTransport({ message: 'Stopped.' });
   timeReader.textContent = `One measure lasts ${12 * 60 / Number(rateControl.value)} seconds.`;

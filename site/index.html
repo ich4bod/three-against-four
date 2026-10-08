@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=5">
-  <script type="module" src="/app.mjs?v=5"></script>
+  <script type="module" src="/app.mjs?v=6"></script>
 </head>
 <body>
   <main>
@@ -24,6 +24,14 @@
         <input id="rhythm-slot" type="range" min="0" max="11" step="1" value="0">
       </div>
       <p id="rhythm-now">Slot 1: both.</p>
+      <div class="buttons">
+        <button id="rhythm-previous-event" type="button">Previous note slot</button>
+        <button id="rhythm-next-event" type="button">Next note slot</button>
+        <button id="rhythm-next-meeting" type="button">Next together slot</button>
+      </div>
+      <p id="rhythm-events">Note slots: 1, 4, 5, 7, 9, 10.</p>
+      <p id="rhythm-meetings">Together slots: 1.</p>
+      <p id="rhythm-walk-help">These buttons move the inspection, not the notes. Together means both rhythms have a note in the same slot.</p>
       <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
       <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
       <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>

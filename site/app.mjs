@@ -249,6 +249,9 @@ function setButtons() {
   if (editor) {
     for (const control of editor.querySelectorAll('input, select, button')) control.disabled = comparing;
   }
+  undoButton.disabled = comparing || history.length === 0;
+  returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
+  forgetButton.disabled = comparing || !keptPattern;
 }
 
 function releaseSource() {
@@ -380,8 +383,8 @@ async function playComparison() {
   const token = ++requestToken;
   comparing = true;
   status.textContent = 'Kept measure.';
-  setButtons();
   renderKeptPattern();
+  setButtons();
   const nextPhase = phase => {
     if (!comparing || token !== requestToken) return;
     if (phase === 0) {

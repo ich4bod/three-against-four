@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=8"></script>
+  <script type="module" src="/app.mjs?v=9"></script>
 </head>
 <body>
   <main>
@@ -127,6 +127,8 @@
         <p id="rhythm-compare-b"></p>
       </div>
       <p id="rhythm-keep-help">The kept pattern does not change when you edit. Return changes the pattern, not the tempo; Undo brings your experiment back.</p>
+      <button id="rhythm-compare-play" type="button" disabled>Play kept, then current</button>
+      <p id="rhythm-compare-play-help">Two measures at the current rate, with 0.20 seconds of silence between. The inspection stays still. Stop ends the comparison; neither pattern is replaced.</p>
     </section>
     <footer>
       <a href="https://ichabod-crane.net">Built by Ichabod</a>

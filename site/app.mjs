@@ -29,6 +29,7 @@ const resetButton = document.querySelector('#rhythm-reset-pattern');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
 const forgetButton = document.querySelector('#rhythm-forget');
+const compareButton = document.querySelector('#rhythm-compare-play');
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');
 let keptPattern;
@@ -46,6 +47,8 @@ let elapsedBeforePause = 0;
 let measureDuration = 0;
 let slotDuration = 0;
 let requestToken = 0;
+let comparing = false;
+let compareTimer = 0;
 
 for (let slot = 0; slot < 12; slot += 1) {
   const angle = 2 * Math.PI * slot / 12 - Math.PI / 2;
@@ -169,6 +172,7 @@ function slotList(slots) {
 }
 
 function renderKeptPattern() {
+  compareButton.disabled = !keptPattern || playing || paused || comparing;
   keptEmpty.hidden = Boolean(keptPattern);
   keptBody.hidden = !keptPattern;
   returnButton.disabled = !keptPattern || samePattern(pattern, keptPattern);
@@ -186,6 +190,7 @@ function renderKeptPattern() {
 
 function commitPattern(next, { preserveSlot = false } = {}) {
   if (samePattern(pattern, next)) return;
+  if (comparing) stopTransport({ reset: !preserveSlot, message: 'Stopped.' });
   history.push({ a: [...pattern.a], b: [...pattern.b], offset: pattern.offset });
   if (history.length > 24) history.shift();
   if (playing || paused) stopTransport({ reset: !preserveSlot, message: 'Stopped.' });
@@ -202,10 +207,17 @@ function readControls() {
 }
 
 function setButtons() {
-  playButton.disabled = playing;
-  pauseButton.disabled = !playing;
-  resumeButton.disabled = !paused;
-  stopButton.disabled = !playing && !paused;
+  playButton.disabled = playing || comparing;
+  pauseButton.disabled = !playing || comparing;
+  resumeButton.disabled = !paused || comparing;
+  stopButton.disabled = !playing && !paused && !comparing;
+  compareButton.disabled = !keptPattern || playing || paused || comparing;
+  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, returnButton, forgetButton]) {
+    control.disabled = comparing;
+  }
+  if (editor) {
+    for (const control of editor.querySelectorAll('input, select, button')) control.disabled = comparing;
+  }
 }
 
 function releaseSource() {
@@ -224,6 +236,9 @@ function cancelClock() {
 
 function stopTransport({ reset = true, message = 'Stopped.' } = {}) {
   requestToken += 1;
+  if (compareTimer) clearTimeout(compareTimer);
+  compareTimer = 0;
+  comparing = false;
   cancelClock();
   releaseSource();
   playing = false;
@@ -259,21 +274,23 @@ function paintClock() {
   frame = requestAnimationFrame(paintClock);
 }
 
-function makeBuffer(context, duration, step, hearing) {
+function makeBuffer(context, duration, step, hearing, layers = [{ pattern, offset: 0 }]) {
   const buffer = context.createBuffer(1, Math.round(duration * context.sampleRate), context.sampleRate);
   const samples = buffer.getChannelData(0);
   for (const [frequency, track, choice] of [[660, 'three', 'a'], [330, 'four', 'b']]) {
     if (hearing !== 'both' && hearing !== choice) continue;
-    for (const { slot, three, four } of patternEvents(pattern)) {
-      if (track === 'three' ? !three : !four) continue;
-      const start = slot * step;
-      const first = Math.max(0, Math.ceil(start * context.sampleRate));
-      const last = Math.min(samples.length, Math.ceil((start + 0.035) * context.sampleRate));
-      for (let index = first; index < last; index += 1) {
-        const time = index / context.sampleRate;
-        const u = time - start;
-        if (u >= 0 && u < 0.035) {
-          samples[index] += 0.07 * Math.max(0, Math.min(1, u / 0.003, (0.035 - u) / 0.01)) * Math.sin(2 * Math.PI * frequency * u);
+    for (const layer of layers) {
+      for (const { slot, three, four } of patternEvents(layer.pattern)) {
+        if (track === 'three' ? !three : !four) continue;
+        const start = layer.offset + slot * step;
+        const first = Math.max(0, Math.ceil(start * context.sampleRate));
+        const last = Math.min(samples.length, Math.ceil((start + 0.035) * context.sampleRate));
+        for (let index = first; index < last; index += 1) {
+          const time = index / context.sampleRate;
+          const u = time - start;
+          if (u >= 0 && u < 0.035) {
+            samples[index] += 0.07 * Math.max(0, Math.min(1, u / 0.003, (0.035 - u) / 0.01)) * Math.sin(2 * Math.PI * frequency * u);
+          }
         }
       }
     }
@@ -303,6 +320,72 @@ async function startAudio(elapsed, token) {
     nextSource.start(0, elapsed);
   } catch {
     if (token === requestToken) stopTransport({ message: 'Sound is unavailable in this browser.' });
+  }
+}
+
+function endComparison(message) {
+  if (!comparing) return;
+  if (compareTimer) clearTimeout(compareTimer);
+  compareTimer = 0;
+  requestToken += 1;
+  releaseSource();
+  comparing = false;
+  status.textContent = message;
+  setButtons();
+  renderKeptPattern();
+}
+
+async function playComparison() {
+  if (!keptPattern || comparing || playing || paused) return;
+  stopTransport({ message: 'Ready.' });
+  const rate = Number(rateControl.value);
+  const step = 60 / rate;
+  const duration = 12 * step;
+  const gap = 0.2;
+  const kept = clonePattern(keptPattern);
+  const current = clonePattern(pattern);
+  const hearing = hearingChoice;
+  const withSound = soundControl.checked;
+  const token = ++requestToken;
+  comparing = true;
+  status.textContent = 'Kept measure.';
+  setButtons();
+  renderKeptPattern();
+  const nextPhase = phase => {
+    if (!comparing || token !== requestToken) return;
+    if (phase === 0) {
+      status.textContent = 'A short silence.';
+      compareTimer = setTimeout(() => nextPhase(1), gap * 1000);
+    } else if (phase === 1) {
+      status.textContent = 'Current measure.';
+      compareTimer = setTimeout(() => endComparison('Comparison finished.'), duration * 1000);
+    }
+  };
+  compareTimer = setTimeout(() => nextPhase(0), duration * 1000);
+  if (!withSound) return;
+  try {
+    if (!audioContext) audioContext = new AudioContext();
+    if (token !== requestToken) return;
+    if (audioContext.state === 'suspended') await audioContext.resume();
+    if (token !== requestToken || !comparing) return;
+    const buffer = makeBuffer(audioContext, 2 * duration + gap, step, hearing, [
+      { pattern: kept, offset: 0 },
+      { pattern: current, offset: duration + gap },
+    ]);
+    const nextSource = audioContext.createBufferSource();
+    source = nextSource;
+    nextSource.buffer = buffer;
+    nextSource.loop = false;
+    nextSource.connect(audioContext.destination);
+    nextSource.onended = () => {
+      if (source === nextSource) {
+        try { nextSource.disconnect(); } catch {}
+        source = undefined;
+      }
+    };
+    nextSource.start(0);
+  } catch {
+    if (token === requestToken) endComparison('Sound is unavailable in this browser.');
   }
 }
 
@@ -346,6 +429,7 @@ undoButton.addEventListener('click', () => {
 resetButton.addEventListener('click', () => commitPattern({ a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset }));
 
 keepButton.addEventListener('click', () => {
+  if (comparing) stopTransport({ message: 'Stopped.' });
   keptPattern = clonePattern(pattern);
   renderKeptPattern();
 });
@@ -354,6 +438,7 @@ returnButton.addEventListener('click', () => {
   commitPattern(clonePattern(keptPattern), { preserveSlot: true });
 });
 forgetButton.addEventListener('click', () => {
+  if (comparing) stopTransport({ message: 'Stopped.' });
   keptPattern = undefined;
   renderKeptPattern();
 });
@@ -387,8 +472,10 @@ pauseButton.addEventListener('click', () => {
 });
 resumeButton.addEventListener('click', resume);
 stopButton.addEventListener('click', () => stopTransport());
+compareButton.addEventListener('click', playComparison);
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden && playing) pauseButton.click();
+  if (document.hidden && comparing) stopTransport({ message: 'Stopped.' });
+  else if (document.hidden && playing) pauseButton.click();
 });
 renderPattern();
 setButtons();

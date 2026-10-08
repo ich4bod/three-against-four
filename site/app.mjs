@@ -19,6 +19,8 @@ const meetingsReader = document.querySelector('#rhythm-meetings');
 const rateControl = document.querySelector('#rhythm-rate');
 const timeReader = document.querySelector('#rhythm-time');
 const soundControl = document.querySelector('#rhythm-sound');
+const measuresControl = document.querySelector('#rhythm-measures');
+const progressReader = document.querySelector('#rhythm-measure-progress');
 const hearingControl = document.querySelector('#rhythm-hear-track');
 let hearingChoice = 'both';
 const playButton = document.querySelector('#rhythm-play');
@@ -49,6 +51,8 @@ let paused = false;
 let startedAt = 0;
 let elapsedBeforePause = 0;
 let measureDuration = 0;
+let totalDuration = 0;
+let measureCount = 1;
 let slotDuration = 0;
 let requestToken = 0;
 let comparing = false;
@@ -243,7 +247,7 @@ function setButtons() {
   resumeButton.disabled = !paused || comparing;
   stopButton.disabled = !playing && !paused && !comparing;
   compareButton.disabled = !keptPattern || playing || paused || comparing;
-  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, returnButton, forgetButton]) {
+  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, measuresControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, returnButton, forgetButton]) {
     control.disabled = comparing;
   }
   if (editor) {
@@ -279,6 +283,7 @@ function stopTransport({ reset = true, message = 'Stopped.' } = {}) {
   paused = false;
   elapsedBeforePause = 0;
   if (reset) slider.value = '0';
+  progressReader.textContent = `Measure 1 of ${measuresControl.value}.`;
   inspect();
   status.textContent = message;
   setButtons();
@@ -291,19 +296,22 @@ function elapsedNow() {
 function paintClock() {
   if (!playing) return;
   const elapsed = elapsedNow();
-  if (elapsed >= measureDuration) {
+  if (elapsed >= totalDuration) {
     cancelClock();
     releaseSource();
     playing = false;
     paused = false;
-    elapsedBeforePause = measureDuration;
+    elapsedBeforePause = totalDuration;
     slider.value = '11';
+    progressReader.textContent = `Measure ${measureCount} of ${measureCount}.`;
     inspect();
-    status.textContent = 'Measure finished.';
+    status.textContent = measureCount === 1 ? 'Measure finished.' : 'Measures finished.';
     setButtons();
     return;
   }
-  slider.value = String(Math.min(11, Math.floor(elapsed / slotDuration)));
+  slider.value = String(Math.floor(elapsed / slotDuration) % 12);
+  const currentMeasure = Math.min(measureCount, Math.floor(elapsed / measureDuration) + 1);
+  progressReader.textContent = `Measure ${currentMeasure} of ${measureCount}.`;
   inspect();
   frame = requestAnimationFrame(paintClock);
 }
@@ -339,7 +347,10 @@ async function startAudio(elapsed, token) {
     if (token !== requestToken) return;
     if (audioContext.state === 'suspended') await audioContext.resume();
     if (token !== requestToken) return;
-    if (!audioBuffer) audioBuffer = makeBuffer(audioContext, measureDuration, slotDuration, hearingChoice);
+    if (!audioBuffer) {
+      const layers = Array.from({ length: measureCount }, (_, index) => ({ pattern, offset: index * measureDuration }));
+      audioBuffer = makeBuffer(audioContext, totalDuration, slotDuration, hearingChoice, layers);
+    }
     const nextSource = audioContext.createBufferSource();
     source = nextSource;
     nextSource.buffer = audioBuffer;
@@ -426,13 +437,17 @@ async function playComparison() {
 async function play() {
   stopTransport({ message: 'Ready.' });
   const rate = Number(rateControl.value);
+  measureCount = Number(measuresControl.value);
   slotDuration = 60 / rate;
   measureDuration = 12 * slotDuration;
+  totalDuration = measureCount * measureDuration;
+  playButton.textContent = `Play ${measuresControl.selectedOptions[0].text.toLowerCase()} measure${measureCount === 1 ? '' : 's'}`;
   audioBuffer = undefined;
   elapsedBeforePause = 0;
   playing = true;
   startedAt = performance.now();
   status.textContent = 'Playing one measure.';
+  progressReader.textContent = `Measure 1 of ${measureCount}.`;
   setButtons();
   const token = ++requestToken;
   frame = requestAnimationFrame(paintClock);
@@ -445,6 +460,7 @@ async function resume() {
   playing = true;
   startedAt = performance.now();
   status.textContent = 'Playing one measure.';
+  progressReader.textContent = `Measure ${Math.min(measureCount, Math.floor(elapsedBeforePause / measureDuration) + 1)} of ${measureCount}.`;
   setButtons();
   const token = ++requestToken;
   frame = requestAnimationFrame(paintClock);
@@ -481,6 +497,10 @@ slider.addEventListener('input', () => changeInspection(slider.value));
 previousEventButton.addEventListener('click', () => walkInspection('notes', 'previous'));
 nextEventButton.addEventListener('click', () => walkInspection('notes', 'next'));
 nextMeetingButton.addEventListener('click', () => walkInspection('meetings', 'next'));
+measuresControl.addEventListener('change', () => {
+  stopTransport({ message: 'Stopped.' });
+  playButton.textContent = `Play ${measuresControl.selectedOptions[0].text.toLowerCase()} measure${Number(measuresControl.value) === 1 ? '' : 's'}`;
+});
 rateControl.addEventListener('change', () => {
   stopTransport({ message: 'Stopped.' });
   timeReader.textContent = `One measure lasts ${12 * 60 / Number(rateControl.value)} seconds.`;
@@ -494,12 +514,14 @@ playButton.addEventListener('click', play);
 pauseButton.addEventListener('click', () => {
   if (!playing) return;
   requestToken += 1;
-  elapsedBeforePause = Math.min(measureDuration, elapsedNow());
+  elapsedBeforePause = Math.min(totalDuration, elapsedNow());
+  const currentMeasure = Math.min(measureCount, Math.floor(elapsedBeforePause / measureDuration) + 1);
+  progressReader.textContent = `Measure ${currentMeasure} of ${measureCount}.`;
   cancelClock();
   releaseSource();
   playing = false;
   paused = true;
-  slider.value = String(Math.min(11, Math.floor(elapsedBeforePause / slotDuration)));
+  slider.value = String(elapsedBeforePause >= totalDuration ? 11 : Math.floor(elapsedBeforePause / slotDuration) % 12);
   inspect();
   status.textContent = 'Paused.';
   setButtons();

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=11"></script>
+  <script type="module" src="/app.mjs?v=12"></script>
 </head>
 <body>
   <main>
@@ -69,6 +69,14 @@
         </select>
       </div>
       <p id="rhythm-hear-help">The clock still shows both rhythms. Choose one to hear its spaces before putting the two together.</p>
+      <div class="hearing-choice">
+        <label for="rhythm-measures">Measures to play</label>
+        <select id="rhythm-measures">
+          <option value="1" selected>One</option>
+          <option value="2">Two</option>
+          <option value="4">Four</option>
+        </select>
+      </div>
       <label class="sound-toggle" for="rhythm-sound"><input id="rhythm-sound" type="checkbox">Sound on</label>
       <div class="buttons">
         <button id="rhythm-play" type="button">Play one measure</button>
@@ -77,9 +85,10 @@
         <button id="rhythm-stop" type="button" disabled>Stop and return to slot 1</button>
       </div>
       <p id="rhythm-status">Ready.</p>
+      <p id="rhythm-measure-progress">Measure 1 of 1.</p>
       <details id="rhythm-play-drawer">
         <summary>Playing one measure</summary>
-        <p id="rhythm-play-help">Sound starts off. Each press plays one measure, then stops. Pause keeps your place. Start with your volume low.</p>
+        <p id="rhythm-play-help">Choose a finite number of measures. Pause keeps your place across their boundaries; changing the count stops the clock.</p>
       </details>
     </section>
     <section class="editor-section">

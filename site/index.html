@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=4">
-  <script type="module" src="/app.mjs?v=4"></script>
+  <link rel="stylesheet" href="/style.css?v=5">
+  <script type="module" src="/app.mjs?v=5"></script>
 </head>
 <body>
   <main>
@@ -37,6 +37,15 @@
         <option value="240">240</option>
       </select>
       <p id="rhythm-time">One measure lasts 6 seconds.</p>
+      <div class="hearing-choice">
+        <label for="rhythm-hear-track">Rhythm to hear</label>
+        <select id="rhythm-hear-track" aria-describedby="rhythm-hear-help">
+          <option value="both" selected>Three and four</option>
+          <option value="a">Three only</option>
+          <option value="b">Four only</option>
+        </select>
+      </div>
+      <p id="rhythm-hear-help">The clock still shows both rhythms. Choose one to hear its spaces before putting the two together.</p>
       <label class="sound-toggle" for="rhythm-sound"><input id="rhythm-sound" type="checkbox">Sound on</label>
       <div class="buttons">
         <button id="rhythm-play" type="button">Play one measure</button>

@@ -38,7 +38,7 @@ section { margin-top: 28px; }
 .marker[data-muted="true"] { fill: none; stroke: currentColor; }
 .marker.four[data-muted="true"] { color: #245aa4; }
 .marker.three[data-muted="true"] { color: #b94b40; }
-.inspection, .buttons {
+.inspection, .buttons, .hearing-choice {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -8,6 +8,8 @@ const reader = document.querySelector('#rhythm-now');
 const rateControl = document.querySelector('#rhythm-rate');
 const timeReader = document.querySelector('#rhythm-time');
 const soundControl = document.querySelector('#rhythm-sound');
+const hearingControl = document.querySelector('#rhythm-hear-track');
+let hearingChoice = 'both';
 const playButton = document.querySelector('#rhythm-play');
 const pauseButton = document.querySelector('#rhythm-pause');
 const resumeButton = document.querySelector('#rhythm-resume');
@@ -203,10 +205,11 @@ function paintClock() {
   frame = requestAnimationFrame(paintClock);
 }
 
-function makeBuffer(context, duration, step) {
+function makeBuffer(context, duration, step, hearing) {
   const buffer = context.createBuffer(1, Math.round(duration * context.sampleRate), context.sampleRate);
   const samples = buffer.getChannelData(0);
-  for (const [frequency, track] of [[660, 'three'], [330, 'four']]) {
+  for (const [frequency, track, choice] of [[660, 'three', 'a'], [330, 'four', 'b']]) {
+    if (hearing !== 'both' && hearing !== choice) continue;
     for (const { slot, three, four } of patternEvents(pattern)) {
       if (track === 'three' ? !three : !four) continue;
       const start = slot * step;
@@ -231,7 +234,7 @@ async function startAudio(elapsed, token) {
     if (token !== requestToken) return;
     if (audioContext.state === 'suspended') await audioContext.resume();
     if (token !== requestToken) return;
-    if (!audioBuffer) audioBuffer = makeBuffer(audioContext, measureDuration, slotDuration);
+    if (!audioBuffer) audioBuffer = makeBuffer(audioContext, measureDuration, slotDuration, hearingChoice);
     const nextSource = audioContext.createBufferSource();
     source = nextSource;
     nextSource.buffer = audioBuffer;
@@ -310,6 +313,10 @@ slider.addEventListener('input', () => {
 rateControl.addEventListener('change', () => {
   stopTransport({ message: 'Stopped.' });
   timeReader.textContent = `One measure lasts ${12 * 60 / Number(rateControl.value)} seconds.`;
+});
+hearingControl.addEventListener('change', () => {
+  hearingChoice = hearingControl.value;
+  stopTransport({ message: 'Stopped.' });
 });
 soundControl.addEventListener('change', () => stopTransport({ message: 'Stopped.' }));
 playButton.addEventListener('click', play);

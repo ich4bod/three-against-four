@@ -7,6 +7,10 @@ const flat = document.querySelector('#rhythm-flat');
 const flatCursor = document.querySelector('#rhythm-flat-cursor');
 const slider = document.querySelector('#rhythm-slot');
 const reader = document.querySelector('#rhythm-now');
+const nextReader = document.querySelector('#rhythm-next-a');
+const nextFourReader = document.querySelector('#rhythm-next-b');
+const gapsReader = document.querySelector('#rhythm-gaps-a');
+const gapsFourReader = document.querySelector('#rhythm-gaps-b');
 const previousEventButton = document.querySelector('#rhythm-previous-event');
 const nextEventButton = document.querySelector('#rhythm-next-event');
 const nextMeetingButton = document.querySelector('#rhythm-next-meeting');
@@ -84,9 +88,36 @@ for (const [track, slots, radius, markerRadius, color] of [
   });
 }
 
+function cyclicGaps(slots) {
+  return slots.map((slot, index) => (slots[(index + 1) % slots.length] - slot + 12) % 12 || 12);
+}
+
+function nextDistance(slots, slot) {
+  return slots.length ? Math.min(...slots.map(note => (note - slot + 12) % 12)) : null;
+}
+
+function updateGapReaders(slot) {
+  const { three, four } = patternSlots(pattern);
+  for (const [label, slots, nextTarget, gapsTarget] of [
+    ['Three', three, nextReader, gapsReader],
+    ['Four', four, nextFourReader, gapsFourReader],
+  ]) {
+    const distance = nextDistance(slots, slot);
+    nextTarget.textContent = distance === null
+      ? `${label}: no notes in this measure.`
+      : distance === 0
+        ? `${label}: a note here.`
+        : `${label}: next note in ${distance} slots.`;
+    gapsTarget.textContent = slots.length
+      ? `${label} gaps: ${cyclicGaps(slots).join(', ')} slots.`
+      : `${label} gaps: no notes.`;
+  }
+}
+
 function inspect() {
   const slot = Number(slider.value);
   reader.textContent = describeSlot(slot, pattern);
+  updateGapReaders(slot);
   const { notes, meetings } = walkSlots();
   eventsReader.textContent = `Note slots: ${slotList(notes)}.`;
   meetingsReader.textContent = `Together slots: ${slotList(meetings)}.`;

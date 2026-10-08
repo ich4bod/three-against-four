@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=9"></script>
+  <script type="module" src="/app.mjs?v=10"></script>
 </head>
 <body>
   <main>
@@ -35,6 +35,14 @@
       <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
       <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
       <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
+      <details id="rhythm-gaps">
+        <summary>Follow the spaces</summary>
+        <p id="rhythm-next-a"></p>
+        <p id="rhythm-next-b"></p>
+        <p id="rhythm-gaps-a"></p>
+        <p id="rhythm-gaps-b"></p>
+        <p id="rhythm-gaps-help">Count from one played note to the next, including the wrap into the next measure. A single note leaves twelve slots between appearances.</p>
+      </details>
     </section>
     <details id="rhythm-flat-reader">
       <summary>Lay the measure flat</summary>

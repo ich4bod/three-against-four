@@ -361,6 +361,7 @@ soundControl.addEventListener('change', () => stopTransport({ message: 'Stopped.
 playButton.addEventListener('click', play);
 pauseButton.addEventListener('click', () => {
   if (!playing) return;
+  requestToken += 1;
   elapsedBeforePause = Math.min(measureDuration, elapsedNow());
   cancelClock();
   releaseSource();

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=12"></script>
+  <script type="module" src="/app.mjs?v=13"></script>
 </head>
 <body>
   <main>
@@ -69,6 +69,17 @@
         </select>
       </div>
       <p id="rhythm-hear-help">The clock still shows both rhythms. Choose one to hear its spaces before putting the two together.</p>
+      <div class="hearing-choice">
+        <label for="rhythm-voices">Rhythm voices</label>
+        <select id="rhythm-voices" aria-describedby="rhythm-voices-help">
+          <option value="usual" selected>Three high, four low</option>
+          <option value="swapped">Three low, four high</option>
+        </select>
+      </div>
+      <details id="rhythm-voices-drawer">
+        <summary>Rhythm voices</summary>
+        <p id="rhythm-voices-help">Trade the pitches, not the note slots. Missing notes stay silent; neither voice grows louder.</p>
+      </details>
       <div class="hearing-choice">
         <label for="rhythm-measures">Measures to play</label>
         <select id="rhythm-measures">

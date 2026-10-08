@@ -22,7 +22,9 @@ const soundControl = document.querySelector('#rhythm-sound');
 const measuresControl = document.querySelector('#rhythm-measures');
 const progressReader = document.querySelector('#rhythm-measure-progress');
 const hearingControl = document.querySelector('#rhythm-hear-track');
+const voicesControl = document.querySelector('#rhythm-voices');
 let hearingChoice = 'both';
+let voicesChoice = 'usual';
 const playButton = document.querySelector('#rhythm-play');
 const pauseButton = document.querySelector('#rhythm-pause');
 const resumeButton = document.querySelector('#rhythm-resume');
@@ -316,10 +318,12 @@ function paintClock() {
   frame = requestAnimationFrame(paintClock);
 }
 
-function makeBuffer(context, duration, step, hearing, layers = [{ pattern, offset: 0 }]) {
+function makeBuffer(context, duration, step, hearing, voices, layers = [{ pattern, offset: 0 }]) {
   const buffer = context.createBuffer(1, Math.round(duration * context.sampleRate), context.sampleRate);
   const samples = buffer.getChannelData(0);
-  for (const [frequency, track, choice] of [[660, 'three', 'a'], [330, 'four', 'b']]) {
+  const frequencies = voices === 'swapped' ? { a: 330, b: 660 } : { a: 660, b: 330 };
+  for (const [track, choice] of [['three', 'a'], ['four', 'b']]) {
+    const frequency = frequencies[choice];
     if (hearing !== 'both' && hearing !== choice) continue;
     for (const layer of layers) {
       for (const { slot, three, four } of patternEvents(layer.pattern)) {
@@ -340,7 +344,7 @@ function makeBuffer(context, duration, step, hearing, layers = [{ pattern, offse
   return buffer;
 }
 
-async function startAudio(elapsed, token) {
+async function startAudio(elapsed, token, voiceSnapshot) {
   if (!soundControl.checked) return;
   try {
     if (!audioContext) audioContext = new AudioContext();
@@ -349,7 +353,7 @@ async function startAudio(elapsed, token) {
     if (token !== requestToken) return;
     if (!audioBuffer) {
       const layers = Array.from({ length: measureCount }, (_, index) => ({ pattern, offset: index * measureDuration }));
-      audioBuffer = makeBuffer(audioContext, totalDuration, slotDuration, hearingChoice, layers);
+      audioBuffer = makeBuffer(audioContext, totalDuration, slotDuration, hearingChoice, voiceSnapshot, layers);
     }
     const nextSource = audioContext.createBufferSource();
     source = nextSource;
@@ -390,6 +394,7 @@ async function playComparison() {
   const kept = clonePattern(keptPattern);
   const current = clonePattern(pattern);
   const hearing = hearingChoice;
+  const voiceSnapshot = voicesChoice;
   const withSound = soundControl.checked;
   const token = ++requestToken;
   comparing = true;
@@ -413,7 +418,7 @@ async function playComparison() {
     if (token !== requestToken) return;
     if (audioContext.state === 'suspended') await audioContext.resume();
     if (token !== requestToken || !comparing) return;
-    const buffer = makeBuffer(audioContext, 2 * duration + gap, step, hearing, [
+    const buffer = makeBuffer(audioContext, 2 * duration + gap, step, hearing, voiceSnapshot, [
       { pattern: kept, offset: 0 },
       { pattern: current, offset: duration + gap },
     ]);
@@ -444,6 +449,7 @@ async function play() {
   playButton.textContent = `Play ${measuresControl.selectedOptions[0].text.toLowerCase()} measure${measureCount === 1 ? '' : 's'}`;
   audioBuffer = undefined;
   elapsedBeforePause = 0;
+  const voiceSnapshot = voicesChoice;
   playing = true;
   startedAt = performance.now();
   status.textContent = 'Playing one measure.';
@@ -451,7 +457,7 @@ async function play() {
   setButtons();
   const token = ++requestToken;
   frame = requestAnimationFrame(paintClock);
-  await startAudio(0, token);
+  await startAudio(0, token, voiceSnapshot);
 }
 
 async function resume() {
@@ -463,8 +469,9 @@ async function resume() {
   progressReader.textContent = `Measure ${Math.min(measureCount, Math.floor(elapsedBeforePause / measureDuration) + 1)} of ${measureCount}.`;
   setButtons();
   const token = ++requestToken;
+  const voiceSnapshot = voicesChoice;
   frame = requestAnimationFrame(paintClock);
-  await startAudio(elapsedBeforePause, token);
+  await startAudio(elapsedBeforePause, token, voiceSnapshot);
 }
 
 editor.addEventListener('change', event => {
@@ -507,6 +514,10 @@ rateControl.addEventListener('change', () => {
 });
 hearingControl.addEventListener('change', () => {
   hearingChoice = hearingControl.value;
+  stopTransport({ message: 'Stopped.' });
+});
+voicesControl.addEventListener('change', () => {
+  voicesChoice = voicesControl.value;
   stopTransport({ message: 'Stopped.' });
 });
 soundControl.addEventListener('change', () => stopTransport({ message: 'Stopped.' }));

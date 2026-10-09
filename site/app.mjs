@@ -35,6 +35,8 @@ const offsetControl = document.querySelector('#rhythm-offset');
 const undoButton = document.querySelector('#rhythm-undo');
 const resetButton = document.querySelector('#rhythm-reset-pattern');
 const invertAButton = document.querySelector('#rhythm-invert-a');
+const rollAForwardButton = document.querySelector('#rhythm-roll-a-forward');
+const rollABackButton = document.querySelector('#rhythm-roll-a-back');
 const invertBButton = document.querySelector('#rhythm-invert-b');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const keepButton = document.querySelector('#rhythm-keep');
@@ -208,6 +210,13 @@ function clonePattern(value) {
   return { a: [...value.a], b: [...value.b], offset: value.offset };
 }
 
+function rolledThreeCandidate(direction) {
+  const next = clonePattern(pattern);
+  const shift = direction === 'forward' ? 1 : 2;
+  next.a = pattern.a.map((_, index) => pattern.a[(index - shift + pattern.a.length) % pattern.a.length]);
+  return samePattern(pattern, next) ? null : next;
+}
+
 function reflectedFourCandidate(value = pattern) {
   const { four } = patternSlots(value);
   const reflected = four.map(slot => (12 - slot) % 12).sort((left, right) => left - right);
@@ -278,6 +287,8 @@ function setButtons() {
   }
   undoButton.disabled = comparing || history.length === 0;
   reflectFourButton.disabled = comparing || !reflectedFourCandidate();
+  rollAForwardButton.disabled = comparing || !rolledThreeCandidate('forward');
+  rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
   forgetButton.disabled = comparing || !keptPattern;
 }
@@ -510,6 +521,14 @@ invertAButton.addEventListener('click', () => {
   const next = clonePattern(pattern);
   next.a = next.a.map(checked => !checked);
   commitPattern(next);
+});
+rollAForwardButton.addEventListener('click', () => {
+  const next = rolledThreeCandidate('forward');
+  if (next) commitPattern(next);
+});
+rollABackButton.addEventListener('click', () => {
+  const next = rolledThreeCandidate('back');
+  if (next) commitPattern(next);
 });
 invertBButton.addEventListener('click', () => {
   const next = clonePattern(pattern);

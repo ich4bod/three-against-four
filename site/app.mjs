@@ -34,6 +34,8 @@ const editor = document.querySelector('#rhythm-editor');
 const offsetControl = document.querySelector('#rhythm-offset');
 const undoButton = document.querySelector('#rhythm-undo');
 const resetButton = document.querySelector('#rhythm-reset-pattern');
+const invertAButton = document.querySelector('#rhythm-invert-a');
+const invertBButton = document.querySelector('#rhythm-invert-b');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
 const forgetButton = document.querySelector('#rhythm-forget');
@@ -484,6 +486,16 @@ undoButton.addEventListener('click', () => {
   renderPattern();
 });
 resetButton.addEventListener('click', () => commitPattern({ a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset }));
+invertAButton.addEventListener('click', () => {
+  const next = clonePattern(pattern);
+  next.a = next.a.map(checked => !checked);
+  commitPattern(next);
+});
+invertBButton.addEventListener('click', () => {
+  const next = clonePattern(pattern);
+  next.b = next.b.map(checked => !checked);
+  commitPattern(next);
+});
 
 keepButton.addEventListener('click', () => {
   if (comparing) stopTransport({ message: 'Stopped.' });

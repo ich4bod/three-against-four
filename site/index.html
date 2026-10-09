@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=13"></script>
+  <script type="module" src="/app.mjs?v=14"></script>
 </head>
 <body>
   <main>
@@ -118,6 +118,11 @@
           <label for="rhythm-b-note-2"><input id="rhythm-b-note-2" type="checkbox" checked>Four note 3</label>
           <label for="rhythm-b-note-3"><input id="rhythm-b-note-3" type="checkbox" checked>Four note 4</label>
         </fieldset>
+        <div class="buttons">
+          <button id="rhythm-invert-a" type="button">Use the missing three notes</button>
+          <button id="rhythm-invert-b" type="button">Use the missing four notes</button>
+        </div>
+        <p>Turn this rhythm’s checked notes off and its missing notes on. The other rhythm and its shift stay put. Undo reverses the whole change.</p>
         <label for="rhythm-offset">Move the four-note rhythm</label>
         <select id="rhythm-offset">
           <option value="0">0 slots</option>

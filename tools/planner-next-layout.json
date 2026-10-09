@@ -1,0 +1,178 @@
+{
+  "slug": "three-against-four",
+  "controls": [
+    [
+      "rhythm-slot",
+      "input"
+    ],
+    [
+      "rhythm-previous-event",
+      "button"
+    ],
+    [
+      "rhythm-next-event",
+      "button"
+    ],
+    [
+      "rhythm-next-meeting",
+      "button"
+    ],
+    [
+      "rhythm-rate",
+      "select"
+    ],
+    [
+      "rhythm-hear-track",
+      "select"
+    ],
+    [
+      "rhythm-voices",
+      "select"
+    ],
+    [
+      "rhythm-measures",
+      "select"
+    ],
+    [
+      "rhythm-sound",
+      "input"
+    ],
+    [
+      "rhythm-play",
+      "button"
+    ],
+    [
+      "rhythm-pause",
+      "button"
+    ],
+    [
+      "rhythm-resume",
+      "button"
+    ],
+    [
+      "rhythm-stop",
+      "button"
+    ],
+    [
+      "rhythm-a-note-0",
+      "input"
+    ],
+    [
+      "rhythm-a-note-1",
+      "input"
+    ],
+    [
+      "rhythm-a-note-2",
+      "input"
+    ],
+    [
+      "rhythm-b-note-0",
+      "input"
+    ],
+    [
+      "rhythm-b-note-1",
+      "input"
+    ],
+    [
+      "rhythm-b-note-2",
+      "input"
+    ],
+    [
+      "rhythm-b-note-3",
+      "input"
+    ],
+    [
+      "rhythm-invert-a",
+      "button"
+    ],
+    [
+      "rhythm-invert-b",
+      "button"
+    ],
+    [
+      "rhythm-offset",
+      "select"
+    ],
+    [
+      "rhythm-reflect-four",
+      "button"
+    ],
+    [
+      "rhythm-undo",
+      "button"
+    ],
+    [
+      "rhythm-reset-pattern",
+      "button"
+    ],
+    [
+      "rhythm-keep",
+      "button"
+    ],
+    [
+      "rhythm-return",
+      "button"
+    ],
+    [
+      "rhythm-forget",
+      "button"
+    ],
+    [
+      "rhythm-compare-play",
+      "button"
+    ]
+  ],
+  "cases": [
+    {
+      "slug": "three-against-four",
+      "lane": 17,
+      "name": "Three against four",
+      "mode": "playchoices",
+      "title": "Three against four \u2014 Put optional pace and voice choices behind the finite measure",
+      "depends": "701",
+      "message": "finite playback stays direct while pace and voice choices open silently together",
+      "groups": [
+        {
+          "id": "rhythm-play-choices",
+          "summary": "Pace and voices",
+          "members": [
+            "#rhythm-rate",
+            "#rhythm-time",
+            "#rhythm-hear-track",
+            "#rhythm-hear-help",
+            "#rhythm-voices",
+            "#rhythm-voices-drawer"
+          ]
+        }
+      ],
+      "outside": [
+        "#rhythm-measures",
+        "#rhythm-sound",
+        "#rhythm-play",
+        "#rhythm-volume-caution",
+        "#rhythm-play-drawer"
+      ],
+      "copySelectors": [
+        "#rhythm-hear-help",
+        "#rhythm-voices-help",
+        "#rhythm-volume-caution"
+      ],
+      "steps": "In section.transport immediately after its h2 add closed details#rhythm-play-choices. Move the label and select#rhythm-rate, p#rhythm-time, entire .hearing-choice containing #rhythm-hear-track with p#rhythm-hear-help, entire .hearing-choice containing #rhythm-voices with intact details#rhythm-voices-drawer into it in their current order. Keep Measures to play, Sound on, transport buttons/status/progress, visible volume caution and existing playback help outside this new door and in their current order. No scheduler, sound, audio-resume, voices, count or mask changes.",
+      "palette": "paper #f3eddd, ink #24384a, red #b94b40, blue #245aa4; existing Georgia/system16",
+      "copy": [
+        [
+          "#rhythm-hear-help",
+          "The clock still shows both rhythms. Choose one to hear its spaces before putting the two together."
+        ],
+        [
+          "#rhythm-voices-help",
+          "Trade the pitches, not the note slots. Missing notes stay silent; neither voice grows louder."
+        ],
+        [
+          "#rhythm-volume-caution",
+          "Start with your volume low."
+        ]
+      ]
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "slug": "three-against-four",
+  "cases": {
+    "studies": {
+      "kind": "rhythm",
+      "message": "three finite rhythm studies preserve listening choices and replace the pattern in one Undo",
+      "door": "rhythm-studies",
+      "summary": "Try three note patterns",
+      "select": "rhythm-study",
+      "apply": "rhythm-study-apply",
+      "rows": [
+        [
+          "answers",
+          "Answers between notes",
+          {
+            "a": [
+              true,
+              false,
+              true
+            ],
+            "b": [
+              false,
+              true,
+              false,
+              true
+            ],
+            "offset": 1
+          }
+        ],
+        [
+          "meeting",
+          "A meeting and its neighbors",
+          {
+            "a": [
+              false,
+              true,
+              false
+            ],
+            "b": [
+              true,
+              true,
+              false,
+              false
+            ],
+            "offset": 1
+          }
+        ],
+        [
+          "empty",
+          "An empty measure",
+          {
+            "a": [
+              false,
+              false,
+              false
+            ],
+            "b": [
+              false,
+              false,
+              false,
+              false
+            ],
+            "offset": 0
+          }
+        ]
+      ]
+    },
+    "reverse": {
+      "kind": "reverse",
+      "message": "reversing a whole measure reflects both masks and Four offset in one reversible edit"
+    }
+  }
+}

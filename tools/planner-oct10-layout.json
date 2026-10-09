@@ -1,0 +1,245 @@
+{
+  "slug": "three-against-four",
+  "controls": [
+    [
+      "rhythm-slot",
+      "input"
+    ],
+    [
+      "rhythm-previous-event",
+      "button"
+    ],
+    [
+      "rhythm-next-event",
+      "button"
+    ],
+    [
+      "rhythm-next-meeting",
+      "button"
+    ],
+    [
+      "rhythm-rate",
+      "select"
+    ],
+    [
+      "rhythm-hear-track",
+      "select"
+    ],
+    [
+      "rhythm-voices",
+      "select"
+    ],
+    [
+      "rhythm-measures",
+      "select"
+    ],
+    [
+      "rhythm-sound",
+      "input"
+    ],
+    [
+      "rhythm-play",
+      "button"
+    ],
+    [
+      "rhythm-pause",
+      "button"
+    ],
+    [
+      "rhythm-resume",
+      "button"
+    ],
+    [
+      "rhythm-stop",
+      "button"
+    ],
+    [
+      "rhythm-a-note-0",
+      "input"
+    ],
+    [
+      "rhythm-a-note-1",
+      "input"
+    ],
+    [
+      "rhythm-a-note-2",
+      "input"
+    ],
+    [
+      "rhythm-b-note-0",
+      "input"
+    ],
+    [
+      "rhythm-b-note-1",
+      "input"
+    ],
+    [
+      "rhythm-b-note-2",
+      "input"
+    ],
+    [
+      "rhythm-b-note-3",
+      "input"
+    ],
+    [
+      "rhythm-invert-a",
+      "button"
+    ],
+    [
+      "rhythm-invert-b",
+      "button"
+    ],
+    [
+      "rhythm-offset",
+      "select"
+    ],
+    [
+      "rhythm-reflect-four",
+      "button"
+    ],
+    [
+      "rhythm-undo",
+      "button"
+    ],
+    [
+      "rhythm-reset-pattern",
+      "button"
+    ],
+    [
+      "rhythm-keep",
+      "button"
+    ],
+    [
+      "rhythm-return",
+      "button"
+    ],
+    [
+      "rhythm-forget",
+      "button"
+    ],
+    [
+      "rhythm-compare-play",
+      "button"
+    ]
+  ],
+  "copy": [
+    {
+      "selector": "#rhythm-walk-help",
+      "text": "These buttons move the inspection, not the notes. Together means both rhythms have a note in the same slot."
+    },
+    {
+      "selector": "#rhythm-gaps-help",
+      "text": "Count from one played note to the next, including the wrap into the next measure. A single note leaves twelve slots between appearances."
+    },
+    {
+      "selector": "#rhythm-flat-help",
+      "text": "Left to right is one measure. The top row is three; the bottom row is four. Outlines are notes left out. The line is the slot being inspected."
+    },
+    {
+      "selector": "#rhythm-hear-help",
+      "text": "The clock still shows both rhythms. Choose one to hear its spaces before putting the two together."
+    },
+    {
+      "selector": "#rhythm-voices-help",
+      "text": "Trade the pitches, not the note slots. Missing notes stay silent; neither voice grows louder."
+    },
+    {
+      "selector": "#rhythm-edit-help",
+      "text": "Unchecked notes leave a silence. Moving four shifts all its notes together; three stays put."
+    },
+    {
+      "selector": "#rhythm-reflect-four-help",
+      "text": "Reflect the four-note rhythm around slot one. Missing notes move too; three stays fixed. Undo restores the old positions."
+    },
+    {
+      "selector": "#rhythm-keep-help",
+      "text": "The kept pattern does not change when you edit. Return changes the pattern, not the tempo; Undo brings your experiment back."
+    },
+    {
+      "selector": "#rhythm-compare-play-help",
+      "text": "Two measures at the current rate, with 0.20 seconds of silence between. The inspection stays still. Stop ends the comparison; neither pattern is replaced."
+    }
+  ],
+  "cases": [
+    {
+      "slug": "three-against-four",
+      "lane": 17,
+      "mode": "transforms",
+      "title": "Three against four — Choose which rhythm an edit changes before opening its tools",
+      "depends": "708, 709",
+      "goal": "Manual note choices remain immediate. Optional transformations say whether they change Three, Four or both, instead of appearing as one undifferentiated row.",
+      "steps": "Inside #rhythm-editor add three closed sibling details #rhythm-three-tools, #rhythm-four-tools and #rhythm-both-tools after the existing direct note checkboxes/offset and #rhythm-edit-help. Three gets rhythm-invert-a, rhythm-roll-a-forward/back and rhythm-roll-a-help. Four gets rhythm-invert-b, rhythm-reflect-four and rhythm-reflect-four-help. Both gets rhythm-keep-meetings and rhythm-keep-meetings-help. Split old inversion wrappers rather than moving both into one door. Keep every native note checkbox, #rhythm-offset, its label, shared edit help, Undo and Reset directly outside these doors in the editor. No candidate/model/transport changes. Existing outer #rhythm-editor remains closed as before.",
+      "groups": [
+        {
+          "id": "rhythm-three-tools",
+          "summary": "Transform Three only",
+          "members": [
+            "#rhythm-invert-a",
+            "#rhythm-roll-a-forward",
+            "#rhythm-roll-a-back",
+            "#rhythm-roll-a-help"
+          ]
+        },
+        {
+          "id": "rhythm-four-tools",
+          "summary": "Transform Four only",
+          "members": [
+            "#rhythm-invert-b",
+            "#rhythm-reflect-four",
+            "#rhythm-reflect-four-help"
+          ]
+        },
+        {
+          "id": "rhythm-both-tools",
+          "summary": "Transform both rhythms",
+          "members": [
+            "#rhythm-keep-meetings",
+            "#rhythm-keep-meetings-help"
+          ]
+        }
+      ],
+      "outside": [
+        "#rhythm-a-note-0",
+        "#rhythm-b-note-0",
+        "#rhythm-offset",
+        "#rhythm-undo",
+        "#rhythm-reset-pattern",
+        "#rhythm-sound"
+      ],
+      "message": "Three Four and shared transformations use independent doors while direct note choices stay outside"
+    },
+    {
+      "slug": "three-against-four",
+      "lane": 17,
+      "mode": "memory",
+      "title": "Three against four — Keep the saved rhythm after the current measure",
+      "depends": "701",
+      "goal": "The measure and its direct playback lead. A saved rhythm and the two-pattern audition remain optional and retain the sound-off default and visible volume caution.",
+      "steps": "Wrap intact section.kept-section in closed details #rhythm-memory-drawer at its existing position after the editor section. Keep every saved pattern reader/control/help and #rhythm-compare-play inside it. Keep #rhythm-volume-caution, #rhythm-sound, all ordinary playback/rate/count/voice choices and current rhythm readers outside memory. Preserve the kept body's own hidden attribute and all audio/eligibility logic. No JS/model change. Do not rewrite701's title or caution.",
+      "groups": [
+        {
+          "id": "rhythm-memory-drawer",
+          "summary": "Keep a rhythm for comparison",
+          "members": [
+            "#rhythm-keep",
+            "#rhythm-return",
+            "#rhythm-forget",
+            "#rhythm-kept-body",
+            "#rhythm-keep-help",
+            "#rhythm-compare-play",
+            "#rhythm-compare-play-help"
+          ]
+        }
+      ],
+      "outside": [
+        "#rhythm-sound",
+        "#rhythm-play",
+        "#rhythm-volume-caution",
+        "#rhythm-rate",
+        "#rhythm-slot",
+        "#rhythm-undo"
+      ],
+      "message": "a saved rhythm waits behind the current measure without hiding sound safety or ordinary playback"
+    }
+  ]
+}

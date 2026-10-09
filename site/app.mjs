@@ -36,6 +36,7 @@ const undoButton = document.querySelector('#rhythm-undo');
 const resetButton = document.querySelector('#rhythm-reset-pattern');
 const invertAButton = document.querySelector('#rhythm-invert-a');
 const invertBButton = document.querySelector('#rhythm-invert-b');
+const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
 const forgetButton = document.querySelector('#rhythm-forget');
@@ -196,6 +197,7 @@ function renderPattern() {
   undoButton.disabled = history.length === 0;
   renderKeptPattern();
   inspect();
+  setButtons();
 }
 
 function samePattern(left, right) {
@@ -204,6 +206,23 @@ function samePattern(left, right) {
 
 function clonePattern(value) {
   return { a: [...value.a], b: [...value.b], offset: value.offset };
+}
+
+function reflectedFourCandidate(value = pattern) {
+  const { four } = patternSlots(value);
+  const reflected = four.map(slot => (12 - slot) % 12).sort((left, right) => left - right);
+  if (!four.length || four.length === reflected.length && four.every((slot, index) => slot === reflected[index])) return null;
+
+  const offset = (3 - value.offset % 3) % 3;
+  const b = Array(4).fill(false);
+  for (let index = 0; index < value.b.length; index += 1) {
+    if (!value.b[index]) continue;
+    const slot = (3 * index + value.offset) % 12;
+    const reflectedSlot = (12 - slot) % 12;
+    const reflectedIndex = ((reflectedSlot - offset + 12) % 12) / 3;
+    b[reflectedIndex] = value.b[index];
+  }
+  return { a: [...value.a], b, offset };
 }
 
 function slotList(slots) {
@@ -258,6 +277,7 @@ function setButtons() {
     for (const control of editor.querySelectorAll('input, select, button')) control.disabled = comparing;
   }
   undoButton.disabled = comparing || history.length === 0;
+  reflectFourButton.disabled = comparing || !reflectedFourCandidate();
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
   forgetButton.disabled = comparing || !keptPattern;
 }
@@ -495,6 +515,10 @@ invertBButton.addEventListener('click', () => {
   const next = clonePattern(pattern);
   next.b = next.b.map(checked => !checked);
   commitPattern(next);
+});
+reflectFourButton.addEventListener('click', () => {
+  const next = reflectedFourCandidate();
+  if (next) commitPattern(next, { preserveSlot: true });
 });
 
 keepButton.addEventListener('click', () => {

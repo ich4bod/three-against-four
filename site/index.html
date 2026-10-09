@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=6">
-  <script type="module" src="/app.mjs?v=14"></script>
+  <script type="module" src="/app.mjs?v=15"></script>
 </head>
 <body>
   <main>
@@ -139,6 +139,10 @@
           <option value="11">11 slots</option>
         </select>
         <p id="rhythm-edit-help">Unchecked notes leave a silence. Moving four shifts all its notes together; three stays put.</p>
+        <div class="buttons">
+          <button id="rhythm-reflect-four" type="button" disabled>Reflect four around slot one</button>
+        </div>
+        <p id="rhythm-reflect-four-help">Reflect the four-note rhythm around slot one. Missing notes move too; three stays fixed. Undo restores the old positions.</p>
         <div class="buttons">
           <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>
           <button id="rhythm-reset-pattern" type="button">Restore all notes and no shift</button>

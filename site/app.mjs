@@ -46,6 +46,7 @@ const invertBButton = document.querySelector('#rhythm-invert-b');
 const keepMeetingsButton = document.querySelector('#rhythm-keep-meetings');
 const removeMeetingsButton = document.querySelector('#rhythm-remove-meetings');
 const reverseMeasureButton = document.querySelector('#rhythm-reverse-measure');
+const invertBothButton = document.querySelector('#rhythm-invert-both');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
@@ -314,6 +315,14 @@ function removeMeetingsCandidate(value = pattern) {
   return samePattern(value, candidate) ? null : candidate;
 }
 
+function invertedBothCandidate(value = pattern) {
+  return {
+    a: value.a.map(enabled => !enabled),
+    b: value.b.map(enabled => !enabled),
+    offset: value.offset,
+  };
+}
+
 function slotList(slots) {
   return slots.length ? slots.map(slot => slot + 1).join(', ') : 'none';
 }
@@ -374,6 +383,7 @@ function setButtons() {
   keepMeetingsButton.disabled = comparing || !meetingsOnlyCandidate();
   removeMeetingsButton.disabled = comparing || !removeMeetingsCandidate();
   reverseMeasureButton.disabled = comparing || !reverseMeasureCandidate();
+  invertBothButton.disabled = comparing || !invertedBothCandidate();
   rollAForwardButton.disabled = comparing || !rolledThreeCandidate('forward');
   rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
@@ -641,6 +651,11 @@ reverseMeasureButton.textContent = 'Reverse the whole measure';
 document.querySelector('#rhythm-reverse-measure-help').textContent = 'Keep slot one fixed and reflect every enabled note around it. Both masks and Four’s offset change together. Undo restores the whole measure.';
 reverseMeasureButton.addEventListener('click', () => {
   const next = reverseMeasureCandidate();
+  if (next) commitPattern(next, { preserveSlot: true });
+});
+invertBothButton.addEventListener('click', () => {
+  if (comparing) return;
+  const next = invertedBothCandidate();
   if (next) commitPattern(next, { preserveSlot: true });
 });
 

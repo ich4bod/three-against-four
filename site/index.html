@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=10">
-  <script type="module" src="/app.mjs?v=18"></script>
+  <script type="module" src="/app.mjs?v=19"></script>
 </head>
 <body>
   <main>
@@ -160,8 +160,10 @@
           <summary>Transform both rhythms</summary>
           <div class="buttons">
             <button id="rhythm-keep-meetings" type="button" disabled>Keep only together notes</button>
+            <button id="rhythm-reverse-measure" type="button" disabled></button>
           </div>
           <p id="rhythm-keep-meetings-help">Remove solo notes from both rhythms at once. If the rhythms never meet, the measure becomes silent. Undo restores both masks.</p>
+          <p id="rhythm-reverse-measure-help"></p>
         </details>
         <div class="buttons">
           <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>

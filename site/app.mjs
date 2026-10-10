@@ -39,6 +39,7 @@ const rollAForwardButton = document.querySelector('#rhythm-roll-a-forward');
 const rollABackButton = document.querySelector('#rhythm-roll-a-back');
 const invertBButton = document.querySelector('#rhythm-invert-b');
 const keepMeetingsButton = document.querySelector('#rhythm-keep-meetings');
+const reverseMeasureButton = document.querySelector('#rhythm-reverse-measure');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
@@ -242,6 +243,15 @@ function reflectedFourCandidate(value = pattern) {
   return { a: [...value.a], b, offset };
 }
 
+function reverseMeasureCandidate(value = pattern) {
+  const candidate = {
+    a: value.a.map((_, index) => value.a[(3 - index) % 3]),
+    b: value.b.map((_, index) => value.b[(4 - index) % 4]),
+    offset: (12 - value.offset) % 12,
+  };
+  return samePattern(value, candidate) ? null : candidate;
+}
+
 function meetingsOnlyCandidate(value = pattern) {
   const { three, four } = patternSlots(value);
   const meetings = new Set(three.filter(slot => four.includes(slot)));
@@ -307,6 +317,7 @@ function setButtons() {
   undoButton.disabled = comparing || history.length === 0;
   reflectFourButton.disabled = comparing || !reflectedFourCandidate();
   keepMeetingsButton.disabled = comparing || !meetingsOnlyCandidate();
+  reverseMeasureButton.disabled = comparing || !reverseMeasureCandidate();
   rollAForwardButton.disabled = comparing || !rolledThreeCandidate('forward');
   rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
@@ -564,6 +575,12 @@ reflectFourButton.addEventListener('click', () => {
 keepMeetingsButton.addEventListener('click', () => {
   const next = meetingsOnlyCandidate();
   if (next) commitPattern(next);
+});
+reverseMeasureButton.textContent = 'Reverse the whole measure';
+document.querySelector('#rhythm-reverse-measure-help').textContent = 'Keep slot one fixed and reflect every enabled note around it. Both masks and Four’s offset change together. Undo restores the whole measure.';
+reverseMeasureButton.addEventListener('click', () => {
+  const next = reverseMeasureCandidate();
+  if (next) commitPattern(next, { preserveSlot: true });
 });
 
 keepButton.addEventListener('click', () => {

@@ -67,6 +67,24 @@ button:disabled { opacity: .55; }
 :focus-visible { outline: 3px solid #8f3f15; outline-offset: 3px; }
 details { margin-top: 12px; }
 details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+#rhythm-play-choices {
+  padding: 12px;
+  background: #fffaf0;
+  border: 1px solid #a4afa9;
+  border-radius: 8px;
+}
+#rhythm-play-choices[open] {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 8px;
+}
+#rhythm-play-choices > summary {
+  grid-column: 1 / -1;
+  min-height: 45px;
+  font: 16px system-ui, sans-serif;
+}
+#rhythm-play-choices > summary:focus { outline: 3px solid #8f3f15; outline-offset: 3px; }
+#rhythm-play-choices > p { margin: 0; }
 main [hidden] { display: none !important; }
 .editor-section { margin-top: 20px; }
 #rhythm-editor { background: #fffaf0; border: 1px solid #a4afa9; border-radius: 8px; padding: 8px 12px; }

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=9">
-  <script type="module" src="/app.mjs?v=17"></script>
+  <link rel="stylesheet" href="/style.css?v=10">
+  <script type="module" src="/app.mjs?v=18"></script>
 </head>
 <body>
   <main>
@@ -169,6 +169,19 @@
         </div>
       </details>
     </section>
+    <details id="rhythm-studies">
+      <summary>Try three note patterns</summary>
+      <div class="study-choice">
+        <label for="rhythm-study">Note pattern</label>
+        <select id="rhythm-study">
+          <option value="answers" selected>Answers between notes</option>
+          <option value="meeting">A meeting and its neighbors</option>
+          <option value="empty">An empty measure</option>
+        </select>
+        <button id="rhythm-study-apply" type="button">Use this pattern</button>
+      </div>
+      <p id="rhythm-study-help">Replace both note masks and Four’s offset in one silent choice. Undo restores the pattern you left. An empty measure still has twelve slots.</p>
+    </details>
     <details id="rhythm-memory-drawer">
       <summary>Keep a rhythm for comparison</summary>
       <section class="kept-section">

@@ -44,6 +44,13 @@ const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
 const forgetButton = document.querySelector('#rhythm-forget');
 const compareButton = document.querySelector('#rhythm-compare-play');
+const studySelect = document.querySelector('#rhythm-study');
+const studyApplyButton = document.querySelector('#rhythm-study-apply');
+const studyPatterns = {
+  answers: { a: [true, false, true], b: [false, true, false, true], offset: 1 },
+  meeting: { a: [false, true, false], b: [true, true, false, false], offset: 1 },
+  empty: { a: [false, false, false], b: [false, false, false, false], offset: 0 },
+};
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');
 let keptPattern;
@@ -291,7 +298,7 @@ function setButtons() {
   resumeButton.disabled = !paused || comparing;
   stopButton.disabled = !playing && !paused && !comparing;
   compareButton.disabled = !keptPattern || playing || paused || comparing;
-  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, measuresControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, keepMeetingsButton, returnButton, forgetButton]) {
+  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, measuresControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, keepMeetingsButton, returnButton, forgetButton, studySelect, studyApplyButton]) {
     control.disabled = comparing;
   }
   if (editor) {
@@ -304,6 +311,8 @@ function setButtons() {
   rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
   forgetButton.disabled = comparing || !keptPattern;
+  const studyCandidate = studyPatterns[studySelect.value];
+  studyApplyButton.disabled = comparing || !studyCandidate || samePattern(pattern, studyCandidate);
 }
 
 function releaseSource() {
@@ -570,6 +579,12 @@ forgetButton.addEventListener('click', () => {
   if (comparing) stopTransport({ message: 'Stopped.' });
   keptPattern = undefined;
   renderKeptPattern();
+});
+studySelect.addEventListener('change', setButtons);
+studyApplyButton.addEventListener('click', () => {
+  if (comparing) return;
+  const candidate = studyPatterns[studySelect.value];
+  if (candidate && !samePattern(pattern, candidate)) commitPattern(clonePattern(candidate));
 });
 
 slider.addEventListener('input', () => changeInspection(slider.value));

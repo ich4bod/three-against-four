@@ -1,0 +1,63 @@
+{
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four \u2014 Try a held gap a late answer and a missing shared beat",
+  "message": "three sparse studies change the voice entrances while kept notes and Undo remain independent",
+  "rows": [
+    [
+      "held-gap",
+      "A gap between two answers",
+      {
+        "a": [
+          true,
+          false,
+          true
+        ],
+        "b": [
+          false,
+          true,
+          false,
+          false
+        ],
+        "offset": 2
+      }
+    ],
+    [
+      "late-answer",
+      "Four answers after Three",
+      {
+        "a": [
+          true,
+          false,
+          false
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 2
+      }
+    ],
+    [
+      "missing-start",
+      "Both leave the first slot empty",
+      {
+        "a": [
+          false,
+          true,
+          true
+        ],
+        "b": [
+          false,
+          true,
+          true,
+          true
+        ],
+        "offset": 0
+      }
+    ]
+  ],
+  "help": "Three studies leave different places silent. A missing note is a rest, not a quieter note. Use changes the pattern once; Keep and Undo still belong to your own measure."
+}

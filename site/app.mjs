@@ -39,6 +39,7 @@ const rollAForwardButton = document.querySelector('#rhythm-roll-a-forward');
 const rollABackButton = document.querySelector('#rhythm-roll-a-back');
 const invertBButton = document.querySelector('#rhythm-invert-b');
 const keepMeetingsButton = document.querySelector('#rhythm-keep-meetings');
+const removeMeetingsButton = document.querySelector('#rhythm-remove-meetings');
 const reverseMeasureButton = document.querySelector('#rhythm-reverse-measure');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const keepButton = document.querySelector('#rhythm-keep');
@@ -263,6 +264,17 @@ function meetingsOnlyCandidate(value = pattern) {
   return samePattern(value, candidate) ? null : candidate;
 }
 
+function removeMeetingsCandidate(value = pattern) {
+  const { three, four } = patternSlots(value);
+  const meetings = new Set(three.filter(slot => four.includes(slot)));
+  const candidate = {
+    a: value.a.map((enabled, index) => enabled && !meetings.has(THREE_SLOTS[index])),
+    b: value.b.map((enabled, index) => enabled && !meetings.has((FOUR_SLOTS[index] + value.offset) % 12)),
+    offset: value.offset,
+  };
+  return samePattern(value, candidate) ? null : candidate;
+}
+
 function slotList(slots) {
   return slots.length ? slots.map(slot => slot + 1).join(', ') : 'none';
 }
@@ -308,15 +320,20 @@ function setButtons() {
   resumeButton.disabled = !paused || comparing;
   stopButton.disabled = !playing && !paused && !comparing;
   compareButton.disabled = !keptPattern || playing || paused || comparing;
-  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, measuresControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, keepMeetingsButton, returnButton, forgetButton, studySelect, studyApplyButton]) {
+  for (const control of [slider, previousEventButton, nextEventButton, nextMeetingButton, rateControl, measuresControl, soundControl, hearingControl, editor, undoButton, resetButton, keepButton, keepMeetingsButton, removeMeetingsButton, returnButton, forgetButton, studySelect, studyApplyButton]) {
     control.disabled = comparing;
   }
   if (editor) {
     for (const control of editor.querySelectorAll('input, select, button')) control.disabled = comparing;
   }
   undoButton.disabled = comparing || history.length === 0;
+  const { notes, meetings } = walkSlots();
+  previousEventButton.disabled = comparing || notes.length === 0;
+  nextEventButton.disabled = comparing || notes.length === 0;
+  nextMeetingButton.disabled = comparing || meetings.length === 0;
   reflectFourButton.disabled = comparing || !reflectedFourCandidate();
   keepMeetingsButton.disabled = comparing || !meetingsOnlyCandidate();
+  removeMeetingsButton.disabled = comparing || !removeMeetingsCandidate();
   reverseMeasureButton.disabled = comparing || !reverseMeasureCandidate();
   rollAForwardButton.disabled = comparing || !rolledThreeCandidate('forward');
   rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
@@ -575,6 +592,11 @@ reflectFourButton.addEventListener('click', () => {
 keepMeetingsButton.addEventListener('click', () => {
   const next = meetingsOnlyCandidate();
   if (next) commitPattern(next);
+});
+removeMeetingsButton.addEventListener('click', () => {
+  if (comparing) return;
+  const next = removeMeetingsCandidate();
+  if (next && !samePattern(pattern, next)) commitPattern(next);
 });
 reverseMeasureButton.textContent = 'Reverse the whole measure';
 document.querySelector('#rhythm-reverse-measure-help').textContent = 'Keep slot one fixed and reflect every enabled note around it. Both masks and Four’s offset change together. Undo restores the whole measure.';

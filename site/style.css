@@ -56,7 +56,7 @@ section { margin-top: 28px; }
   align-items: center;
   gap: 8px;
 }
-label, input, select, button { min-height: 44px; }
+label, input, select, button { min-height: 45px; }
 label { display: inline-flex; align-items: center; }
 input[type="range"] { width: min(100%, 280px); accent-color: #8f3f15; }
 .sound-toggle { gap: 8px; }
@@ -66,7 +66,7 @@ button { padding: 6px 12px; }
 button:disabled { opacity: .55; }
 :focus-visible { outline: 3px solid #8f3f15; outline-offset: 3px; }
 details { margin-top: 12px; }
-details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }
+details summary { min-height: 45px; display: flex; align-items: center; cursor: pointer; }
 #rhythm-play-choices {
   padding: 12px;
   background: #fffaf0;
@@ -139,6 +139,10 @@ main [hidden] { display: none !important; }
 #rhythm-editor fieldset label { gap: 8px; }
 #rhythm-offset { margin-left: 8px; }
 #rhythm-undo:disabled { opacity: .55; }
+#rhythm-combined-gaps-heading { font-size: 18px; }
+#rhythm-combined-gaps { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+#rhythm-combined-gaps th, #rhythm-combined-gaps td { padding: 4px; text-align: left; }
+#rhythm-combined-gaps th { border-bottom: 1px solid #a4afa9; }
 footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; }
 a { color: #24384a; }
 @media (max-width: 600px) { main { padding: 16px; } }

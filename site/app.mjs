@@ -11,6 +11,11 @@ const nextReader = document.querySelector('#rhythm-next-a');
 const nextFourReader = document.querySelector('#rhythm-next-b');
 const gapsReader = document.querySelector('#rhythm-gaps-a');
 const gapsFourReader = document.querySelector('#rhythm-gaps-b');
+const combinedGapsTable = document.querySelector('#rhythm-combined-gaps');
+const combinedGapsBody = combinedGapsTable.querySelector('tbody');
+const combinedGapsEmpty = document.querySelector('#rhythm-combined-gaps-empty');
+const combinedGapsHeading = document.querySelector('#rhythm-combined-gaps-heading');
+const combinedGapsHelp = document.querySelector('#rhythm-combined-gaps-help');
 const previousEventButton = document.querySelector('#rhythm-previous-event');
 const nextEventButton = document.querySelector('#rhythm-next-event');
 const nextMeetingButton = document.querySelector('#rhythm-next-meeting');
@@ -135,6 +140,39 @@ function updateGapReaders(slot) {
   }
 }
 
+function updateCombinedGapReader() {
+  const { three, four } = patternSlots(pattern);
+  combinedGapsHeading.textContent = 'Both rhythms together';
+  combinedGapsTable.querySelectorAll('thead th').forEach((header, index) => {
+    header.textContent = ['From slot', 'To slot', 'Slots', 'Wait'][index];
+  });
+  combinedGapsEmpty.textContent = 'No enabled notes; the whole measure is silent.';
+  combinedGapsHelp.textContent = 'A shared note counts once in this combined path. The last wait reaches the first enabled note in the next measure. Hearing one voice does not change the table.';
+
+  const slots = [...new Set([...three, ...four])].sort((left, right) => left - right);
+  combinedGapsBody.replaceChildren();
+  combinedGapsTable.hidden = slots.length === 0;
+  combinedGapsEmpty.hidden = slots.length !== 0;
+  const rate = Number(rateControl.value);
+  slots.forEach((slot, index) => {
+    const next = slots[(index + 1) % slots.length];
+    const gap = slots.length === 1 ? 12 : (next - slot + 12) % 12;
+    const row = document.createElement('tr');
+    const cells = [
+      String(slot + 1),
+      `${next + 1}${index === slots.length - 1 ? ' (next measure)' : ''}`,
+      String(gap),
+      `${(gap * 60 / rate).toFixed(2)} s`,
+    ];
+    for (const value of cells) {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    }
+    combinedGapsBody.append(row);
+  });
+}
+
 function inspect() {
   const slot = Number(slider.value);
   reader.textContent = describeSlot(slot, pattern);
@@ -208,6 +246,7 @@ function renderPattern() {
   offsetControl.value = String(pattern.offset);
   undoButton.disabled = history.length === 0;
   renderKeptPattern();
+  updateCombinedGapReader();
   inspect();
   setButtons();
 }
@@ -637,6 +676,7 @@ measuresControl.addEventListener('change', () => {
 rateControl.addEventListener('change', () => {
   stopTransport({ message: 'Stopped.' });
   timeReader.textContent = `One measure lasts ${12 * 60 / Number(rateControl.value)} seconds.`;
+  updateCombinedGapReader();
 });
 hearingControl.addEventListener('change', () => {
   hearingChoice = hearingControl.value;

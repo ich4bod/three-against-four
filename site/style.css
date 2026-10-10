@@ -70,6 +70,18 @@ details summary { min-height: 44px; display: flex; align-items: center; cursor: 
 main [hidden] { display: none !important; }
 .editor-section { margin-top: 20px; }
 #rhythm-editor { background: #fffaf0; border: 1px solid #a4afa9; border-radius: 8px; padding: 8px 12px; }
+#rhythm-memory-drawer {
+  margin-top: 28px;
+  padding: 12px;
+  background: #fffaf0;
+  border: 1px solid #a4afa9;
+  border-radius: 8px;
+}
+#rhythm-memory-drawer > summary {
+  min-height: 45px;
+  font: 16px system-ui, sans-serif;
+}
+#rhythm-memory-drawer > .kept-section { margin-top: 0; }
 #rhythm-three-tools, #rhythm-four-tools, #rhythm-both-tools {
   margin-top: 8px;
   padding: 12px;

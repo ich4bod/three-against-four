@@ -16,11 +16,12 @@ const combinedGapsBody = combinedGapsTable.querySelector('tbody');
 const combinedGapsEmpty = document.querySelector('#rhythm-combined-gaps-empty');
 const combinedGapsHeading = document.querySelector('#rhythm-combined-gaps-heading');
 const combinedGapsHelp = document.querySelector('#rhythm-combined-gaps-help');
+const meetingRows = document.querySelector('#rhythm-meeting-rows');
 const previousEventButton = document.querySelector('#rhythm-previous-event');
 const nextEventButton = document.querySelector('#rhythm-next-event');
 const nextMeetingButton = document.querySelector('#rhythm-next-meeting');
 const eventsReader = document.querySelector('#rhythm-events');
-const meetingsReader = document.querySelector('#rhythm-meetings');
+const meetingsReader = document.querySelector('#rhythm-current-meetings');
 const rateControl = document.querySelector('#rhythm-rate');
 const timeReader = document.querySelector('#rhythm-time');
 const soundControl = document.querySelector('#rhythm-sound');
@@ -174,6 +175,23 @@ function updateCombinedGapReader() {
   });
 }
 
+function updateMeetingOffsetReader() {
+  const three = THREE_SLOTS.filter((_, index) => pattern.a[index]);
+  meetingRows.replaceChildren();
+  for (let offset = 0; offset < 12; offset += 1) {
+    const four = FOUR_SLOTS.filter((_, index) => pattern.b[index])
+      .map(slot => (slot + offset) % 12);
+    const meetings = three.filter(slot => four.includes(slot));
+    const row = document.createElement('tr');
+    for (const value of [String(offset), meetings.length ? meetings.map(slot => slot + 1).join(', ') : 'none', String(meetings.length)]) {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    }
+    meetingRows.append(row);
+  }
+}
+
 function inspect() {
   const slot = Number(slider.value);
   reader.textContent = describeSlot(slot, pattern);
@@ -248,6 +266,7 @@ function renderPattern() {
   undoButton.disabled = history.length === 0;
   renderKeptPattern();
   updateCombinedGapReader();
+  updateMeetingOffsetReader();
   inspect();
   setButtons();
 }

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=12">
-  <script type="module" src="/app.mjs?v=22"></script>
+  <link rel="stylesheet" href="/style.css?v=13">
+  <script type="module" src="/app.mjs?v=23"></script>
 </head>
 <body>
   <main>
@@ -30,7 +30,7 @@
         <button id="rhythm-next-meeting" type="button">Next together slot</button>
       </div>
       <p id="rhythm-events">Note slots: 1, 4, 5, 7, 9, 10.</p>
-      <p id="rhythm-meetings">Together slots: 1.</p>
+      <p id="rhythm-current-meetings">Together slots: 1.</p>
       <p id="rhythm-walk-help">These buttons move the inspection, not the notes. Together means both rhythms have a note in the same slot.</p>
       <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
       <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
@@ -175,6 +175,14 @@
           <p id="rhythm-remove-meetings-help">Remove shared notes from both rhythms. Each solo note stays in its original slot. If only shared notes remain, this edit makes silence. Undo restores both masks.</p>
           <p id="rhythm-reverse-measure-help"></p>
           <p id="rhythm-invert-both-help">Every checked note becomes silent, and every unchecked note becomes a note. The offset and inspected slot stay put. Undo restores both rows together.</p>
+        </details>
+        <details id="rhythm-meetings">
+          <summary>Where the two rhythms meet</summary>
+          <p id="rhythm-meetings-help">Each row tries a different offset using the notes checked now. It does not move the rhythm or play it. Meeting slots count from one; offsets count from zero.</p>
+          <table id="rhythm-meeting-table">
+            <thead><tr><th>Offset</th><th>Meeting slots</th><th>Count</th></tr></thead>
+            <tbody id="rhythm-meeting-rows"></tbody>
+          </table>
         </details>
         <div class="buttons">
           <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>

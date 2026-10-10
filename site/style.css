@@ -143,6 +143,12 @@ main [hidden] { display: none !important; }
 #rhythm-combined-gaps { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
 #rhythm-combined-gaps th, #rhythm-combined-gaps td { padding: 4px; text-align: left; }
 #rhythm-combined-gaps th { border-bottom: 1px solid #a4afa9; }
+#rhythm-meetings { margin-top: 8px; }
+#rhythm-meetings > summary { min-height: 45px; font: 16px system-ui, sans-serif; }
+#rhythm-meetings > p { margin-bottom: 8px; }
+#rhythm-meeting-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
+#rhythm-meeting-table th, #rhythm-meeting-table td { padding: 4px; text-align: left; overflow-wrap: anywhere; }
+#rhythm-meeting-table th { border-bottom: 1px solid #a4afa9; }
 footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; }
 a { color: #24384a; }
 @media (max-width: 600px) { main { padding: 16px; } }

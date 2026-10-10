@@ -70,6 +70,17 @@ details summary { min-height: 44px; display: flex; align-items: center; cursor: 
 main [hidden] { display: none !important; }
 .editor-section { margin-top: 20px; }
 #rhythm-editor { background: #fffaf0; border: 1px solid #a4afa9; border-radius: 8px; padding: 8px 12px; }
+#rhythm-three-tools, #rhythm-four-tools, #rhythm-both-tools {
+  margin-top: 8px;
+  padding: 12px;
+  background: #fffaf0;
+  border: 1px solid #a4afa9;
+  border-radius: 8px;
+}
+#rhythm-three-tools > summary, #rhythm-four-tools > summary, #rhythm-both-tools > summary {
+  min-height: 45px;
+  font: 16px system-ui, sans-serif;
+}
 #rhythm-editor fieldset { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; border: 1px solid #a4afa9; }
 #rhythm-editor legend { padding: 0 4px; }
 #rhythm-editor fieldset label { gap: 8px; }

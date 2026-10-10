@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=6">
+  <link rel="stylesheet" href="/style.css?v=7">
   <script type="module" src="/app.mjs?v=17"></script>
 </head>
 <body>
@@ -119,18 +119,7 @@
           <label for="rhythm-b-note-2"><input id="rhythm-b-note-2" type="checkbox" checked>Four note 3</label>
           <label for="rhythm-b-note-3"><input id="rhythm-b-note-3" type="checkbox" checked>Four note 4</label>
         </fieldset>
-        <div class="buttons">
-          <button id="rhythm-invert-a" type="button">Use the missing three notes</button>
-          <button id="rhythm-roll-a-forward" type="button">Move three forward one beat</button>
-          <button id="rhythm-roll-a-back" type="button">Move three back one beat</button>
-          <button id="rhythm-invert-b" type="button">Use the missing four notes</button>
-        </div>
-        <div class="buttons">
-          <button id="rhythm-keep-meetings" type="button" disabled>Keep only together notes</button>
-        </div>
-        <p id="rhythm-keep-meetings-help">Remove solo notes from both rhythms at once. If the rhythms never meet, the measure becomes silent. Undo restores both masks.</p>
         <p>Turn this rhythm’s checked notes off and its missing notes on. The other rhythm and its shift stay put. Undo reverses the whole change.</p>
-        <p id="rhythm-roll-a-help">Move the enabled notes around Three’s three marked beats. Four stays where it is. Undo restores the whole press.</p>
         <label for="rhythm-offset">Move the four-note rhythm</label>
         <select id="rhythm-offset">
           <option value="0">0 slots</option>
@@ -147,10 +136,30 @@
           <option value="11">11 slots</option>
         </select>
         <p id="rhythm-edit-help">Unchecked notes leave a silence. Moving four shifts all its notes together; three stays put.</p>
-        <div class="buttons">
-          <button id="rhythm-reflect-four" type="button" disabled>Reflect four around slot one</button>
-        </div>
-        <p id="rhythm-reflect-four-help">Reflect the four-note rhythm around slot one. Missing notes move too; three stays fixed. Undo restores the old positions.</p>
+        <details id="rhythm-three-tools">
+          <summary>Transform Three only</summary>
+          <div class="buttons">
+            <button id="rhythm-invert-a" type="button">Use the missing three notes</button>
+            <button id="rhythm-roll-a-forward" type="button">Move three forward one beat</button>
+            <button id="rhythm-roll-a-back" type="button">Move three back one beat</button>
+          </div>
+          <p id="rhythm-roll-a-help">Move the enabled notes around Three’s three marked beats. Four stays where it is. Undo restores the whole press.</p>
+        </details>
+        <details id="rhythm-four-tools">
+          <summary>Transform Four only</summary>
+          <div class="buttons">
+            <button id="rhythm-invert-b" type="button">Use the missing four notes</button>
+            <button id="rhythm-reflect-four" type="button" disabled>Reflect four around slot one</button>
+          </div>
+          <p id="rhythm-reflect-four-help">Reflect the four-note rhythm around slot one. Missing notes move too; three stays fixed. Undo restores the old positions.</p>
+        </details>
+        <details id="rhythm-both-tools">
+          <summary>Transform both rhythms</summary>
+          <div class="buttons">
+            <button id="rhythm-keep-meetings" type="button" disabled>Keep only together notes</button>
+          </div>
+          <p id="rhythm-keep-meetings-help">Remove solo notes from both rhythms at once. If the rhythms never meet, the measure becomes silent. Undo restores both masks.</p>
+        </details>
         <div class="buttons">
           <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>
           <button id="rhythm-reset-pattern" type="button">Restore all notes and no shift</button>

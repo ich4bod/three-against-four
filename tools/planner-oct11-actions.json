@@ -1,0 +1,15 @@
+{
+  "alignfour": {
+    "lane": 17,
+    "depends": "nothing",
+    "title": "Three against four \u2014 Bring the next Four note to the inspected slot",
+    "message": "aligning the next enabled Four note changes only offset and preserves the inspected slot in one Undo",
+    "buttons": [
+      "rhythm-four-here"
+    ],
+    "copy": {
+      "rhythm-four-here": "Bring Four\u2019s next note here",
+      "rhythm-four-here-help": "Move Four\u2019s next enabled note onto the inspected slot by changing its offset. Three and both note masks stay put. A Four note already here needs no edit. Undo restores the offset."
+    }
+  }
+}

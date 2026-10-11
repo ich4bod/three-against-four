@@ -1,0 +1,68 @@
+{
+  "slug": "three-against-four",
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four — Leave the opening silent in Four and move its two answers",
+  "group": "Two answers around Three",
+  "helpID": "rhythm-two-answer-offset-help",
+  "help": "Three keeps all three notes. Four keeps only its second and fourth notes, so its own first note is a rest. Offsets zero, one and two move those two answers. A meeting puts two notes at one slot; it does not remove a voice. Use stays silent.",
+  "rows": [
+    [
+      "two-answer-offset-zero",
+      "Two answers at the ordinary offset",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "two-answer-offset-one",
+      "Two answers shifted by one",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "offset": 1
+      }
+    ],
+    [
+      "two-answer-offset-two",
+      "Two answers shifted by two",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          false,
+          true,
+          false,
+          true
+        ],
+        "offset": 2
+      }
+    ]
+  ],
+  "depends": "nothing",
+  "message": "rests experiments keep the supplied choices silent and reversible",
+  "facts": "Zero-based Three0/4/8. Kept Four indices1/3 mean base slots3/9; after offsets0/1/2 slots3/9,4/10,5/11. Total five notes in every row; occupied slots5/4/5. Only offset1 meets Three at slot4. Native display adds1: meeting is shown at slot5. Do not invent an offset3 or change timing."
+}

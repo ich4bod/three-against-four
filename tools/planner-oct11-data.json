@@ -1,0 +1,65 @@
+{
+  "mode": "rests",
+  "lane": 17,
+  "depends": "792",
+  "title": "Three against four \u2014 Set an opening a separated answer and a double arrival",
+  "message": "three call-and-answer measures preserve checked notes offsets and one-step Undo",
+  "rows": [
+    [
+      "call-start",
+      "An opening with an answer",
+      {
+        "a": [
+          true,
+          false,
+          false
+        ],
+        "b": [
+          false,
+          true,
+          false,
+          false
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "call-space",
+      "Keep space after the opening",
+      {
+        "a": [
+          true,
+          false,
+          false
+        ],
+        "b": [
+          false,
+          false,
+          true,
+          false
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "call-double",
+      "Two voices at the opening",
+      {
+        "a": [
+          true,
+          false,
+          false
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 0
+      }
+    ]
+  ],
+  "help": "One Three note opens each measure. Four answers at slot four or seven, or joins the opening before answering. Missing notes stay silent; these choices do not play themselves.",
+  "helpID": "rhythm-answer-study-help"
+}

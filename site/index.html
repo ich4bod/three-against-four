@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=13">
-  <script type="module" src="/app.mjs?v=24"></script>
+  <link rel="stylesheet" href="/style.css?v=14">
+  <script type="module" src="/app.mjs?v=25"></script>
 </head>
 <body>
   <main>
@@ -188,6 +188,11 @@
           <button id="rhythm-undo" type="button" disabled>Undo pattern change</button>
           <button id="rhythm-reset-pattern" type="button">Restore all notes and no shift</button>
         </div>
+      </details>
+      <details id="rhythm-census">
+        <summary>Count the twelve slots</summary>
+        <p id="rhythm-census-readout">Twelve slots: 6 silent · 2 Three only · 3 Four only · 1 together. Enabled notes: 7.</p>
+        <p id="rhythm-census-help">A together slot contains two enabled notes. These counts describe the whole measure, not how loudly it plays or which voice you chose to hear.</p>
       </details>
     </section>
     <details id="rhythm-studies">

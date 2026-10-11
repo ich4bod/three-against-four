@@ -146,6 +146,17 @@ main [hidden] { display: none !important; }
 #rhythm-meetings { margin-top: 8px; }
 #rhythm-meetings > summary { min-height: 45px; font: 16px system-ui, sans-serif; }
 #rhythm-meetings > p { margin-bottom: 8px; }
+#rhythm-census {
+  padding: 8px 12px;
+  color: #24384a;
+  background: #f3eddd;
+  border: 1px solid #a4afa9;
+  border-radius: 8px;
+  font: 16px/1.55 Georgia, system-ui, sans-serif;
+}
+#rhythm-census > summary { min-height: 45px; font: 16px/1.55 Georgia, system-ui, sans-serif; }
+#rhythm-census-readout { overflow-wrap: anywhere; color: #24384a; }
+#rhythm-census-help { overflow-wrap: anywhere; color: #66747c; }
 #rhythm-meeting-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
 #rhythm-meeting-table th, #rhythm-meeting-table td { padding: 4px; text-align: left; overflow-wrap: anywhere; }
 #rhythm-meeting-table th { border-bottom: 1px solid #a4afa9; }

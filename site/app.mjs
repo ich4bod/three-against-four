@@ -16,6 +16,7 @@ const combinedGapsBody = combinedGapsTable.querySelector('tbody');
 const combinedGapsEmpty = document.querySelector('#rhythm-combined-gaps-empty');
 const combinedGapsHeading = document.querySelector('#rhythm-combined-gaps-heading');
 const combinedGapsHelp = document.querySelector('#rhythm-combined-gaps-help');
+const censusReadout = document.querySelector('#rhythm-census-readout');
 const meetingRows = document.querySelector('#rhythm-meeting-rows');
 const previousEventButton = document.querySelector('#rhythm-previous-event');
 const nextEventButton = document.querySelector('#rhythm-next-event');
@@ -244,6 +245,15 @@ function walkInspection(kind, direction) {
 
 function renderPattern() {
   const active = patternSlots(pattern);
+  const census = { silent: 0, threeOnly: 0, fourOnly: 0, together: 0 };
+  for (const event of patternEvents(pattern)) {
+    if (event.three && event.four) census.together += 1;
+    else if (event.three) census.threeOnly += 1;
+    else if (event.four) census.fourOnly += 1;
+    else census.silent += 1;
+  }
+  const enabledNotes = census.threeOnly + census.fourOnly + 2 * census.together;
+  censusReadout.textContent = `Twelve slots: ${census.silent} silent · ${census.threeOnly} Three only · ${census.fourOnly} Four only · ${census.together} together. Enabled notes: ${enabledNotes}.`;
   document.querySelector('#rhythm-a-slots').textContent = `Three plays slots: ${active.three.length ? active.three.map(slot => slot + 1).join(', ') : 'none'}.`;
   document.querySelector('#rhythm-b-slots').textContent = `Four plays slots: ${active.four.length ? active.four.map(slot => slot + 1).join(', ') : 'none'}.`;
   for (const { marker, flatNote } of markerNodes) {

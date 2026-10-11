@@ -1,0 +1,14 @@
+{
+  "rollfour": {
+    "copy": {
+      "rhythm-four-roll-forward": "Roll Four\u2019s mask forward",
+      "rhythm-four-roll-back": "Roll Four\u2019s mask back",
+      "rhythm-four-roll-help": "Move Four\u2019s enabled choices by one note position around its own grid. Each position spans three slots. Its offset and Three stay put; Undo restores the whole measure."
+    },
+    "buttons": [
+      "rhythm-four-roll-forward",
+      "rhythm-four-roll-back"
+    ],
+    "message": "rollfour preserves unrelated state and answers its supplied native experiment"
+  }
+}

@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=16">
-  <script type="module" src="/app.mjs?v=31"></script>
+  <script type="module" src="/app.mjs?v=32"></script>
 </head>
 <body>
   <main>
@@ -216,6 +216,11 @@
             <option value="late-answer">Four answers after Three</option>
             <option value="missing-start">Both leave the first slot empty</option>
           </optgroup>
+          <optgroup label="Moving the meeting">
+            <option value="meeting-five">Meet at slot five</option>
+            <option value="meeting-nine">Meet at slot nine</option>
+            <option value="meeting-one">Meet at slot one again</option>
+          </optgroup>
           <option value="call-start">An opening with an answer</option>
           <option value="call-space">Keep space after the opening</option>
           <option value="call-double">Two voices at the opening</option>
@@ -223,6 +228,7 @@
         <button id="rhythm-study-apply" type="button">Use this pattern</button>
       </div>
       <p id="rhythm-study-help">Replace both note masks and Four’s offset in one silent choice. Undo restores the pattern you left. An empty measure still has twelve slots.</p>
+      <p id="rhythm-moving-meeting-help">Every Three and Four note remains enabled. Four moves by one, two or three slots; the shared entrance lands at slot five, nine or one. A meeting is two notes at one slot, not an extra note. Use is silent and Undo restores your measure.</p>
       <p id="rhythm-rest-study-help">Three studies leave different places silent. A missing note is a rest, not a quieter note. Use changes the pattern once; Keep and Undo still belong to your own measure.</p>
       <p id="rhythm-answer-study-help">One Three note opens each measure. Four answers at slot four or seven, or joins the opening before answering. Missing notes stay silent; these choices do not play themselves.</p>
     </details>

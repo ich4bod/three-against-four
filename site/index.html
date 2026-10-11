@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=16">
-  <script type="module" src="/app.mjs?v=29"></script>
+  <script type="module" src="/app.mjs?v=30"></script>
 </head>
 <body>
   <main>
@@ -232,6 +232,11 @@
         <button id="rhythm-return" type="button" disabled>Return to kept pattern</button>
         <button id="rhythm-forget" type="button" disabled>Forget kept pattern</button>
       </div>
+      <div class="buttons">
+        <button id="rhythm-return-a" type="button" disabled>Use kept Three</button>
+        <button id="rhythm-return-b" type="button" disabled>Use kept Four and offset</button>
+      </div>
+      <p id="rhythm-partial-return-help">Bring back just Three’s checked notes, or Four’s checked notes with its offset. The other voice and inspected slot stay put. The kept measure does not change; Undo restores the whole press.</p>
       <p id="rhythm-kept-empty">No pattern kept.</p>
       <div id="rhythm-kept-body" hidden>
         <p id="rhythm-kept-a"></p>

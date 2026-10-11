@@ -53,6 +53,8 @@ const reflectFourButton = document.querySelector('#rhythm-reflect-four');
 const fourHereButton = document.querySelector('#rhythm-four-here');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
+const returnThreeButton = document.querySelector('#rhythm-return-a');
+const returnFourButton = document.querySelector('#rhythm-return-b');
 const forgetButton = document.querySelector('#rhythm-forget');
 const compareButton = document.querySelector('#rhythm-compare-play');
 const studySelect = document.querySelector('#rhythm-study');
@@ -299,6 +301,18 @@ function samePattern(left, right) {
   return left.offset === right.offset && left.a.every((value, index) => value === right.a[index]) && left.b.every((value, index) => value === right.b[index]);
 }
 
+function partialThreeCandidate(value = pattern, kept = keptPattern) {
+  if (!kept) return null;
+  const candidate = { a: [...kept.a], b: [...value.b], offset: value.offset };
+  return samePattern(value, candidate) ? null : candidate;
+}
+
+function partialFourCandidate(value = pattern, kept = keptPattern) {
+  if (!kept) return null;
+  const candidate = { a: [...value.a], b: [...kept.b], offset: kept.offset };
+  return samePattern(value, candidate) ? null : candidate;
+}
+
 function clonePattern(value) {
   return { a: [...value.a], b: [...value.b], offset: value.offset };
 }
@@ -410,6 +424,8 @@ function renderKeptPattern() {
   keptEmpty.hidden = Boolean(keptPattern);
   keptBody.hidden = !keptPattern;
   returnButton.disabled = !keptPattern || samePattern(pattern, keptPattern);
+  returnThreeButton.disabled = comparing || !partialThreeCandidate();
+  returnFourButton.disabled = comparing || !partialFourCandidate();
   forgetButton.disabled = !keptPattern;
   if (!keptPattern) return;
   const current = patternSlots(pattern);
@@ -466,6 +482,8 @@ function setButtons() {
   rollAForwardButton.disabled = comparing || !rolledThreeCandidate('forward');
   rollABackButton.disabled = comparing || !rolledThreeCandidate('back');
   returnButton.disabled = comparing || !keptPattern || samePattern(pattern, keptPattern);
+  returnThreeButton.disabled = comparing || !partialThreeCandidate();
+  returnFourButton.disabled = comparing || !partialFourCandidate();
   forgetButton.disabled = comparing || !keptPattern;
   const studyCandidate = studyPatterns[studySelect.value];
   studyApplyButton.disabled = comparing || !studyCandidate || samePattern(pattern, studyCandidate);
@@ -751,6 +769,16 @@ keepButton.addEventListener('click', () => {
 returnButton.addEventListener('click', () => {
   if (!keptPattern || samePattern(pattern, keptPattern)) return;
   commitPattern(clonePattern(keptPattern), { preserveSlot: true });
+});
+returnThreeButton.addEventListener('click', () => {
+  if (comparing) return;
+  const candidate = partialThreeCandidate();
+  if (candidate) commitPattern(candidate, { preserveSlot: true });
+});
+returnFourButton.addEventListener('click', () => {
+  if (comparing) return;
+  const candidate = partialFourCandidate();
+  if (candidate) commitPattern(candidate, { preserveSlot: true });
 });
 forgetButton.addEventListener('click', () => {
   if (comparing) stopTransport({ message: 'Stopped.' });

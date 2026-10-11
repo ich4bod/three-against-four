@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=13">
-  <script type="module" src="/app.mjs?v=23"></script>
+  <script type="module" src="/app.mjs?v=24"></script>
 </head>
 <body>
   <main>
@@ -191,13 +191,16 @@
       </details>
     </section>
     <details id="rhythm-studies">
-      <summary>Try three note patterns</summary>
+      <summary>Try note patterns</summary>
       <div class="study-choice">
         <label for="rhythm-study">Note pattern</label>
         <select id="rhythm-study">
           <option value="answers" selected>Answers between notes</option>
           <option value="meeting">A meeting and its neighbors</option>
           <option value="empty">An empty measure</option>
+          <option value="one-three">One note from Three</option>
+          <option value="one-four">One note from Four</option>
+          <option value="split">Two notes answered between</option>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>
       </div>

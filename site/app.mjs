@@ -59,6 +59,9 @@ const studyPatterns = {
   answers: { a: [true, false, true], b: [false, true, false, true], offset: 1 },
   meeting: { a: [false, true, false], b: [true, true, false, false], offset: 1 },
   empty: { a: [false, false, false], b: [false, false, false, false], offset: 0 },
+  'one-three': { a: [true, false, false], b: [false, false, false, false], offset: 0 },
+  'one-four': { a: [false, false, false], b: [false, true, false, false], offset: 2 },
+  split: { a: [true, false, true], b: [false, true, false, true], offset: 0 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

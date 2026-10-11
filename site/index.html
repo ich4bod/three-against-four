@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=16">
+  <link rel="stylesheet" href="/style.css?v=17">
   <script type="module" src="/app.mjs?v=32"></script>
 </head>
 <body>
@@ -265,6 +265,34 @@
       <p id="rhythm-keep-help">The kept pattern does not change when you edit. Return changes the pattern, not the tempo; Undo brings your experiment back.</p>
       <button id="rhythm-compare-play" type="button" disabled>Play kept, then current</button>
       <p id="rhythm-compare-play-help">Two measures at the current rate, with 0.20 seconds of silence between. The inspection stays still. Stop ends the comparison; neither pattern is replaced.</p>
+      </section>
+    </details>
+    <details id="three-questions-three-against-four">
+      <summary>Try three questions about notes and meetings</summary>
+      <p>A slot is a place in the measure. A note belongs to a voice. Keep those two counts separate while you change the checked notes and Four’s offset.</p>
+      <section>
+        <h3>Are there six notes or seven?</h3>
+        <p>Enable all three Three notes and all four Four notes. Set Four’s offset to zero. Read the twelve-slot census before playing one measure.</p>
+        <details>
+          <summary>Read an answer</summary>
+          <p>There are seven notes at six occupied slots. Both voices enter at slot 1, so that one place holds two notes. The other five occupied slots each hold one. A shared entrance does not remove either voice.</p>
+        </details>
+      </section>
+      <section>
+        <h3>What does an offset move?</h3>
+        <p>Keep the complete pattern. Change Four’s offset from zero to one. Compare every slot with the kept measure. Where does the shared entrance go?</p>
+        <details>
+          <summary>Read an answer</summary>
+          <p>It moves from slot 1 to slot 5. Three remains at slots 1, 5 and 9; Four moves to 2, 5, 8 and 11. The kept column still uses its own offset. Seven notes remain seven notes.</p>
+        </details>
+      </section>
+      <section>
+        <h3>Is a missing note a softer note?</h3>
+        <p>Uncheck one Four note and play a finite measure. If you want a visual answer first, inspect the slot where that note used to arrive.</p>
+        <details>
+          <summary>Read an answer</summary>
+          <p>It is a rest. The removed voice does not sound at that entrance, and the remaining notes are not amplified to compensate. At a shared entrance, removing Four can leave Three there without making the slot silent.</p>
+        </details>
       </section>
     </details>
     <footer>

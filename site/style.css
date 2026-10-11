@@ -166,6 +166,49 @@ main [hidden] { display: none !important; }
 #rhythm-meeting-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 14px; }
 #rhythm-meeting-table th, #rhythm-meeting-table td { padding: 4px; text-align: left; overflow-wrap: anywhere; }
 #rhythm-meeting-table th { border-bottom: 1px solid #a4afa9; }
+#three-questions-three-against-four {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  margin: 16px 0;
+  padding: 12px;
+  border: 1px solid #245aa4;
+  border-radius: 8px;
+  font: 16px/1.5 system-ui, sans-serif;
+}
+#three-questions-three-against-four summary {
+  box-sizing: border-box;
+  min-height: 45px;
+  max-width: 100%;
+  padding: 8px;
+  overflow-wrap: anywhere;
+}
+#three-questions-three-against-four summary:focus-visible {
+  outline: 3px solid #245aa4;
+  outline-offset: 3px;
+}
+#three-questions-three-against-four > p,
+#three-questions-three-against-four > section > p,
+#three-questions-three-against-four > section > details > p {
+  margin: 8px 0;
+  overflow-wrap: anywhere;
+}
+#three-questions-three-against-four > section {
+  max-width: 100%;
+  margin: 16px 0;
+  overflow-wrap: anywhere;
+}
+#three-questions-three-against-four h3 {
+  font: bold 18px/1.35 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
+#three-questions-three-against-four > section > details {
+  max-width: 100%;
+  margin: 8px 0;
+  padding: 8px;
+  border: 1px solid #a4afa9;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
 footer { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 32px; }
 a { color: #24384a; }
 @media (max-width: 600px) { main { padding: 16px; } }

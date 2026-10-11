@@ -50,6 +50,7 @@ const removeMeetingsButton = document.querySelector('#rhythm-remove-meetings');
 const reverseMeasureButton = document.querySelector('#rhythm-reverse-measure');
 const invertBothButton = document.querySelector('#rhythm-invert-both');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
+const fourHereButton = document.querySelector('#rhythm-four-here');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
 const forgetButton = document.querySelector('#rhythm-forget');
@@ -220,6 +221,7 @@ function inspect() {
   }
   flatCursor.setAttribute('x1', 22 + 31 * slot);
   flatCursor.setAttribute('x2', 22 + 31 * slot);
+  fourHereButton.disabled = comparing || !fourHereCandidate(pattern, slot);
 }
 
 function walkSlots() {
@@ -306,6 +308,18 @@ function rolledThreeCandidate(direction) {
   const shift = direction === 'forward' ? 1 : 2;
   next.a = pattern.a.map((_, index) => pattern.a[(index - shift + pattern.a.length) % pattern.a.length]);
   return samePattern(pattern, next) ? null : next;
+}
+
+function fourHereCandidate(value = pattern, inspectedSlot = Number(slider.value)) {
+  const { four } = patternSlots(value);
+  if (!four.length) return null;
+  const distance = Math.min(...four.map(slot => (slot - inspectedSlot + 12) % 12));
+  if (distance === 0) return null;
+  return {
+    a: [...value.a],
+    b: [...value.b],
+    offset: (value.offset - distance + 12) % 12,
+  };
 }
 
 function reflectedFourCandidate(value = pattern) {
@@ -444,6 +458,7 @@ function setButtons() {
   nextEventButton.disabled = comparing || notes.length === 0;
   nextMeetingButton.disabled = comparing || meetings.length === 0;
   reflectFourButton.disabled = comparing || !reflectedFourCandidate();
+  fourHereButton.disabled = comparing || !fourHereCandidate();
   keepMeetingsButton.disabled = comparing || !meetingsOnlyCandidate();
   removeMeetingsButton.disabled = comparing || !removeMeetingsCandidate();
   reverseMeasureButton.disabled = comparing || !reverseMeasureCandidate();
@@ -697,6 +712,11 @@ invertBButton.addEventListener('click', () => {
   const next = clonePattern(pattern);
   next.b = next.b.map(checked => !checked);
   commitPattern(next);
+});
+fourHereButton.addEventListener('click', () => {
+  if (comparing) return;
+  const next = fourHereCandidate();
+  if (next) commitPattern(next, { preserveSlot: true });
 });
 reflectFourButton.addEventListener('click', () => {
   const next = reflectedFourCandidate();

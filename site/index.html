@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=16">
-  <script type="module" src="/app.mjs?v=26"></script>
+  <script type="module" src="/app.mjs?v=27"></script>
 </head>
 <body>
   <main>
@@ -206,10 +206,16 @@
           <option value="one-three">One note from Three</option>
           <option value="one-four">One note from Four</option>
           <option value="split">Two notes answered between</option>
+          <optgroup label="Different rests">
+            <option value="held-gap">A gap between two answers</option>
+            <option value="late-answer">Four answers after Three</option>
+            <option value="missing-start">Both leave the first slot empty</option>
+          </optgroup>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>
       </div>
       <p id="rhythm-study-help">Replace both note masks and Four’s offset in one silent choice. Undo restores the pattern you left. An empty measure still has twelve slots.</p>
+      <p id="rhythm-rest-study-help">Three studies leave different places silent. A missing note is a rest, not a quieter note. Use changes the pattern once; Keep and Undo still belong to your own measure.</p>
     </details>
     <details id="rhythm-memory-drawer">
       <summary>Keep a rhythm for comparison</summary>

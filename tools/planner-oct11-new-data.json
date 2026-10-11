@@ -1,0 +1,67 @@
+{
+  "slug": "three-against-four",
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four \u2014 Move the shared entrance around a complete measure",
+  "rows": [
+    [
+      "meeting-five",
+      "Meet at slot five",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "offset": 1
+      }
+    ],
+    [
+      "meeting-nine",
+      "Meet at slot nine",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "offset": 2
+      }
+    ],
+    [
+      "meeting-one",
+      "Meet at slot one again",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "offset": 3
+      }
+    ]
+  ],
+  "group": "Moving the meeting",
+  "help": "Every Three and Four note remains enabled. Four moves by one, two or three slots; the shared entrance lands at slot five, nine or one. A meeting is two notes at one slot, not an extra note. Use is silent and Undo restores your measure.",
+  "helpID": "rhythm-moving-meeting-help",
+  "depends": "nothing",
+  "message": "rests studies preserve their supplied values and independent memory"
+}

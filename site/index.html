@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=16">
-  <script type="module" src="/app.mjs?v=30"></script>
+  <script type="module" src="/app.mjs?v=31"></script>
 </head>
 <body>
   <main>
@@ -160,10 +160,13 @@
           <div class="buttons">
             <button id="rhythm-invert-b" type="button">Use the missing four notes</button>
             <button id="rhythm-reflect-four" type="button" disabled>Reflect four around slot one</button>
+            <button id="rhythm-four-roll-forward" type="button">Roll Four’s mask forward</button>
+            <button id="rhythm-four-roll-back" type="button">Roll Four’s mask back</button>
             <button id="rhythm-four-here" type="button" disabled>Bring Four’s next note here</button>
           </div>
           <p id="rhythm-reflect-four-help">Reflect the four-note rhythm around slot one. Missing notes move too; three stays fixed. Undo restores the old positions.</p>
           <p id="rhythm-four-here-help">Move Four’s next enabled note onto the inspected slot by changing its offset. Three and both note masks stay put. A Four note already here needs no edit. Undo restores the offset.</p>
+          <p id="rhythm-four-roll-help">Move Four’s enabled choices by one note position around its own grid. Each position spans three slots. Its offset and Three stay put; Undo restores the whole measure.</p>
         </details>
         <details id="rhythm-both-tools">
           <summary>Transform both rhythms</summary>

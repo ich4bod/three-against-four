@@ -50,6 +50,8 @@ const removeMeetingsButton = document.querySelector('#rhythm-remove-meetings');
 const reverseMeasureButton = document.querySelector('#rhythm-reverse-measure');
 const invertBothButton = document.querySelector('#rhythm-invert-both');
 const reflectFourButton = document.querySelector('#rhythm-reflect-four');
+const rollFourForwardButton = document.querySelector('#rhythm-four-roll-forward');
+const rollFourBackButton = document.querySelector('#rhythm-four-roll-back');
 const fourHereButton = document.querySelector('#rhythm-four-here');
 const keepButton = document.querySelector('#rhythm-keep');
 const returnButton = document.querySelector('#rhythm-return');
@@ -324,6 +326,13 @@ function rolledThreeCandidate(direction) {
   return samePattern(pattern, next) ? null : next;
 }
 
+function rolledFourMaskCandidate(direction) {
+  const next = clonePattern(pattern);
+  const shift = direction === 'forward' ? 1 : 3;
+  next.b = pattern.b.map((_, index) => pattern.b[(index - shift + pattern.b.length) % pattern.b.length]);
+  return samePattern(pattern, next) ? null : next;
+}
+
 function fourHereCandidate(value = pattern, inspectedSlot = Number(slider.value)) {
   const { four } = patternSlots(value);
   if (!four.length) return null;
@@ -474,6 +483,8 @@ function setButtons() {
   nextEventButton.disabled = comparing || notes.length === 0;
   nextMeetingButton.disabled = comparing || meetings.length === 0;
   reflectFourButton.disabled = comparing || !reflectedFourCandidate();
+  rollFourForwardButton.disabled = comparing || !rolledFourMaskCandidate('forward');
+  rollFourBackButton.disabled = comparing || !rolledFourMaskCandidate('back');
   fourHereButton.disabled = comparing || !fourHereCandidate();
   keepMeetingsButton.disabled = comparing || !meetingsOnlyCandidate();
   removeMeetingsButton.disabled = comparing || !removeMeetingsCandidate();
@@ -738,6 +749,16 @@ fourHereButton.addEventListener('click', () => {
 });
 reflectFourButton.addEventListener('click', () => {
   const next = reflectedFourCandidate();
+  if (next) commitPattern(next, { preserveSlot: true });
+});
+rollFourForwardButton.addEventListener('click', () => {
+  if (comparing) return;
+  const next = rolledFourMaskCandidate('forward');
+  if (next) commitPattern(next, { preserveSlot: true });
+});
+rollFourBackButton.addEventListener('click', () => {
+  if (comparing) return;
+  const next = rolledFourMaskCandidate('back');
   if (next) commitPattern(next, { preserveSlot: true });
 });
 keepMeetingsButton.addEventListener('click', () => {

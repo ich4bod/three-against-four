@@ -1,0 +1,67 @@
+{
+  "slug": "three-against-four",
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four \u2014 Move a single Four note between Three\u2019s three entrances",
+  "group": "One meeting, three places",
+  "helpID": "rhythm-single-meeting-help",
+  "help": "Three keeps its notes at slots one, five and nine. Four keeps only its first note: offsets zero, four and eight place it at those three entrances in turn. Each measure has four notes but only three occupied slots; a meeting does not remove either voice.",
+  "rows": [
+    [
+      "one-meeting-first",
+      "Four meets Three at the opening",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "one-meeting-middle",
+      "Four meets Three in the middle",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "offset": 4
+      }
+    ],
+    [
+      "one-meeting-last",
+      "Four meets Three near the end",
+      {
+        "a": [
+          true,
+          true,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          false,
+          false
+        ],
+        "offset": 8
+      }
+    ]
+  ],
+  "depends": "nothing",
+  "message": "rests comparisons preserve the authored experiment without replacing its memory"
+}

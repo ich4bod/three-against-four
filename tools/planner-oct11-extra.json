@@ -1,0 +1,17 @@
+{
+  "partialrhythm": {
+    "lane": 17,
+    "depends": "nothing",
+    "title": "Three against four \u2014 Return one kept voice without replacing the other",
+    "message": "partial voice Return keeps the other rhythm and inspected slot in one reversible edit",
+    "buttons": [
+      "rhythm-return-a",
+      "rhythm-return-b"
+    ],
+    "copy": {
+      "rhythm-return-a": "Use kept Three",
+      "rhythm-return-b": "Use kept Four and offset",
+      "rhythm-partial-return-help": "Bring back just Three\u2019s checked notes, or Four\u2019s checked notes with its offset. The other voice and inspected slot stay put. The kept measure does not change; Undo restores the whole press."
+    }
+  }
+}

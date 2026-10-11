@@ -143,6 +143,12 @@ main [hidden] { display: none !important; }
 #rhythm-combined-gaps { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
 #rhythm-combined-gaps th, #rhythm-combined-gaps td { padding: 4px; text-align: left; }
 #rhythm-combined-gaps th { border-bottom: 1px solid #a4afa9; }
+#rhythm-slot-comparison { margin-top: 12px; }
+#rhythm-slot-comparison > summary { min-height: 45px; font: 16px system-ui, sans-serif; }
+#rhythm-difference-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+#rhythm-difference-table th:first-child, #rhythm-difference-table td:first-child { width: 18%; white-space: nowrap; }
+#rhythm-difference-table th, #rhythm-difference-table td { padding: 4px; text-align: left; overflow-wrap: anywhere; }
+#rhythm-difference-table th { border-bottom: 1px solid #a4afa9; }
 #rhythm-meetings { margin-top: 8px; }
 #rhythm-meetings > summary { min-height: 45px; font: 16px system-ui, sans-serif; }
 #rhythm-meetings > p { margin-bottom: 8px; }

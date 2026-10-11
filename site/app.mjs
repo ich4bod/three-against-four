@@ -66,6 +66,9 @@ const studyPatterns = {
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');
+const slotComparisonEmpty = document.querySelector('#rhythm-slot-comparison-empty');
+const differenceTable = document.querySelector('#rhythm-difference-table');
+const differenceRows = document.querySelector('#rhythm-difference-rows');
 let keptPattern;
 const markerNodes = [];
 let pattern = { a: [...DEFAULT_PATTERN.a], b: [...DEFAULT_PATTERN.b], offset: DEFAULT_PATTERN.offset };
@@ -359,7 +362,30 @@ function slotList(slots) {
   return slots.length ? slots.map(slot => slot + 1).join(', ') : 'none';
 }
 
+function renderSlotComparison() {
+  const current = patternSlots(pattern);
+  const kept = keptPattern ? patternSlots(keptPattern) : null;
+  slotComparisonEmpty.hidden = Boolean(keptPattern);
+  differenceTable.hidden = !keptPattern;
+  differenceRows.replaceChildren();
+  for (let slot = 0; slot < 12; slot += 1) {
+    const label = (voices, index) => {
+      const three = voices.three.includes(index);
+      const four = voices.four.includes(index);
+      return three && four ? 'Three + Four' : three ? 'Three' : four ? 'Four' : 'silence';
+    };
+    const row = document.createElement('tr');
+    for (const value of [String(slot + 1), label(current, slot), kept ? label(kept, slot) : 'silence']) {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    }
+    differenceRows.append(row);
+  }
+}
+
 function renderKeptPattern() {
+  renderSlotComparison();
   compareButton.disabled = !keptPattern || playing || paused || comparing;
   keptEmpty.hidden = Boolean(keptPattern);
   keptBody.hidden = !keptPattern;

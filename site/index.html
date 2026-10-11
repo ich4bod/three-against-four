@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=14">
-  <script type="module" src="/app.mjs?v=25"></script>
+  <link rel="stylesheet" href="/style.css?v=16">
+  <script type="module" src="/app.mjs?v=26"></script>
 </head>
 <body>
   <main>
@@ -227,6 +227,15 @@
         <p id="rhythm-compare-a"></p>
         <p id="rhythm-compare-b"></p>
       </div>
+      <details id="rhythm-slot-comparison">
+        <summary>Compare every slot with the kept measure</summary>
+        <p id="rhythm-slot-comparison-empty">Keep a pattern to compare the twelve slots.</p>
+        <table id="rhythm-difference-table" hidden>
+          <thead><tr><th>Slot</th><th>Current</th><th>Kept</th></tr></thead>
+          <tbody id="rhythm-difference-rows"></tbody>
+        </table>
+        <p id="rhythm-slot-comparison-help">The two columns use each pattern’s own masks and Four’s offset. A voice can disappear here and arrive at another slot. Reading does not play or restore either pattern.</p>
+      </details>
       <p id="rhythm-keep-help">The kept pattern does not change when you edit. Return changes the pattern, not the tempo; Undo brings your experiment back.</p>
       <button id="rhythm-compare-play" type="button" disabled>Play kept, then current</button>
       <p id="rhythm-compare-play-help">Two measures at the current rate, with 0.20 seconds of silence between. The inspection stays still. Stop ends the comparison; neither pattern is replaced.</p>

@@ -1,0 +1,67 @@
+{
+  "slug": "three-against-four",
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four — Keep four notes while a sparse answer meets or misses the opening",
+  "group": "Four notes, changing meetings",
+  "helpID": "rhythm-four-note-help",
+  "help": "Three keeps two notes and Four keeps two notes. The Four offset alone moves: a meeting can occupy one slot without removing either note. Missing notes remain silent. Choosing an answer does not play it.",
+  "rows": [
+    [
+      "duet-meet-start",
+      "Meet at the opening",
+      {
+        "a": [
+          true,
+          true,
+          false
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "duet-miss",
+      "Miss both Three notes",
+      {
+        "a": [
+          true,
+          true,
+          false
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 1
+      }
+    ],
+    [
+      "duet-meet-later",
+      "Meet the later Three note",
+      {
+        "a": [
+          true,
+          true,
+          false
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 4
+      }
+    ]
+  ],
+  "depends": "nothing",
+  "message": "rests choices preserve exact authored data and the independent kept experiment"
+}

@@ -61,6 +61,15 @@ const forgetButton = document.querySelector('#rhythm-forget');
 const compareButton = document.querySelector('#rhythm-compare-play');
 const studySelect = document.querySelector('#rhythm-study');
 const studyApplyButton = document.querySelector('#rhythm-study-apply');
+const choiceNote = document.querySelector('#choice-note-three-against-four');
+const choiceNotes = {
+  'opposite-first': 'About the selected choice: Three is at slots one and nine. Four is at one and seven: four notes occupy three slots, with both voices at the opening.',
+  'opposite-miss': 'About the selected choice: Three is at slots one and nine. Four is at two and eight: four notes occupy four slots, without a meeting.',
+  'opposite-last': 'About the selected choice: Three is at slots one and nine. Four is at three and nine: four notes occupy three slots, with both voices near the end.',
+};
+function updateSelectedChoiceNote() {
+  choiceNote.textContent = choiceNotes[studySelect.value] ?? 'Other choices keep their existing descriptions.';
+}
 const studyPatterns = {
   answers: { a: [true, false, true], b: [false, true, false, true], offset: 1 },
   meeting: { a: [false, true, false], b: [true, true, false, false], offset: 1 },
@@ -310,6 +319,7 @@ function renderPattern() {
   renderKeptPattern();
   updateCombinedGapReader();
   updateMeetingOffsetReader();
+  updateSelectedChoiceNote();
   inspect();
   setButtons();
 }
@@ -821,7 +831,10 @@ forgetButton.addEventListener('click', () => {
   keptPattern = undefined;
   renderKeptPattern();
 });
-studySelect.addEventListener('change', setButtons);
+studySelect.addEventListener('change', () => {
+  updateSelectedChoiceNote();
+  setButtons();
+});
 studyApplyButton.addEventListener('click', () => {
   if (comparing) return;
   const candidate = studyPatterns[studySelect.value];

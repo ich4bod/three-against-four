@@ -142,6 +142,14 @@ main [hidden] { display: none !important; }
   font: 16px/1.5 system-ui, sans-serif;
   overflow-wrap: anywhere;
 }
+#rhythm-studies > #choice-note-three-against-four {
+  min-width: 0;
+  max-width: 100%;
+  margin: 8px 0;
+  color: #66747c;
+  font: 16px/1.5 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
 #rhythm-memory-drawer {
   margin-top: 28px;
   padding: 12px;

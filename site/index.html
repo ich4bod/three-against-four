@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
   <link rel="stylesheet" href="/style.css?v=22">
-  <script type="module" src="/app.mjs?v=37"></script>
+  <script type="module" src="/app.mjs?v=38"></script>
 </head>
 <body>
   <main>
@@ -243,6 +243,21 @@
             <option value="opposite-first">Opposite answers meet the opening</option>
             <option value="opposite-miss">Opposite answers miss both calls</option>
             <option value="opposite-last">Opposite answers meet the last call</option>
+          </optgroup>
+          <optgroup label="Middle call, adjacent answers">
+            <option value="middle-two-0">Four starts 0 slots later</option>
+            <option value="middle-two-1">Four starts 1 slots later</option>
+            <option value="middle-two-2">Four starts 2 slots later</option>
+          </optgroup>
+          <optgroup label="Last call, all Four notes">
+            <option value="last-full-0">Four starts 0 slots later</option>
+            <option value="last-full-1">Four starts 1 slots later</option>
+            <option value="last-full-2">Four starts 2 slots later</option>
+          </optgroup>
+          <optgroup label="Opening and middle, one answer">
+            <option value="two-calls-one-0">Four starts 0 slots later</option>
+            <option value="two-calls-one-1">Four starts 1 slots later</option>
+            <option value="two-calls-one-2">Four starts 2 slots later</option>
           </optgroup>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>

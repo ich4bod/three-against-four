@@ -66,6 +66,15 @@ const choiceNotes = {
   'opposite-first': 'About the selected choice: Three is at slots one and nine. Four is at one and seven: four notes occupy three slots, with both voices at the opening.',
   'opposite-miss': 'About the selected choice: Three is at slots one and nine. Four is at two and eight: four notes occupy four slots, without a meeting.',
   'opposite-last': 'About the selected choice: Three is at slots one and nine. Four is at three and nine: four notes occupy three slots, with both voices near the end.',
+  'middle-two-0': 'About the selected choice: Three occupies displayed slots 5. Four occupies 1, 4. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'middle-two-1': 'About the selected choice: Three occupies displayed slots 5. Four occupies 2, 5. They meet at 5. A meeting keeps both voices; unchecked notes stay silent.',
+  'middle-two-2': 'About the selected choice: Three occupies displayed slots 5. Four occupies 3, 6. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'last-full-0': 'About the selected choice: Three occupies displayed slots 9. Four occupies 1, 4, 7, 10. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'last-full-1': 'About the selected choice: Three occupies displayed slots 9. Four occupies 2, 5, 8, 11. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'last-full-2': 'About the selected choice: Three occupies displayed slots 9. Four occupies 3, 6, 9, 12. They meet at 9. A meeting keeps both voices; unchecked notes stay silent.',
+  'two-calls-one-0': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 1. They meet at 1. A meeting keeps both voices; unchecked notes stay silent.',
+  'two-calls-one-1': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 2. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'two-calls-one-2': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 3. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
 };
 function updateSelectedChoiceNote() {
   choiceNote.textContent = choiceNotes[studySelect.value] ?? 'Other choices keep their existing descriptions.';
@@ -98,6 +107,15 @@ const studyPatterns = {
   'opposite-first': { a: [true, false, true], b: [true, false, true, false], offset: 0 },
   'opposite-miss': { a: [true, false, true], b: [true, false, true, false], offset: 1 },
   'opposite-last': { a: [true, false, true], b: [true, false, true, false], offset: 2 },
+  'middle-two-0': { a: [false, true, false], b: [true, true, false, false], offset: 0 },
+  'middle-two-1': { a: [false, true, false], b: [true, true, false, false], offset: 1 },
+  'middle-two-2': { a: [false, true, false], b: [true, true, false, false], offset: 2 },
+  'last-full-0': { a: [false, false, true], b: [true, true, true, true], offset: 0 },
+  'last-full-1': { a: [false, false, true], b: [true, true, true, true], offset: 1 },
+  'last-full-2': { a: [false, false, true], b: [true, true, true, true], offset: 2 },
+  'two-calls-one-0': { a: [true, true, false], b: [true, false, false, false], offset: 0 },
+  'two-calls-one-1': { a: [true, true, false], b: [true, false, false, false], offset: 1 },
+  'two-calls-one-2': { a: [true, true, false], b: [true, false, false, false], offset: 2 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

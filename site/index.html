@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=18">
-  <script type="module" src="/app.mjs?v=33"></script>
+  <link rel="stylesheet" href="/style.css?v=19">
+  <script type="module" src="/app.mjs?v=34"></script>
 </head>
 <body>
   <main>
@@ -229,10 +229,16 @@
             <option value="duet-miss">Miss both Three notes</option>
             <option value="duet-meet-later">Meet the later Three note</option>
           </optgroup>
+          <optgroup label="Two answers around Three">
+            <option value="two-answer-offset-zero">Two answers at the ordinary offset</option>
+            <option value="two-answer-offset-one">Two answers shifted by one</option>
+            <option value="two-answer-offset-two">Two answers shifted by two</option>
+          </optgroup>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>
       </div>
       <p id="rhythm-study-help">Replace both note masks and Four’s offset in one silent choice. Undo restores the pattern you left. An empty measure still has twelve slots.</p>
+      <p id="rhythm-two-answer-offset-help">Three keeps all three notes. Four keeps only its second and fourth notes, so its own first note is a rest. Offsets zero, one and two move those two answers. A meeting puts two notes at one slot; it does not remove a voice. Use stays silent.</p>
       <p id="rhythm-four-note-help">Three keeps two notes and Four keeps two notes. The Four offset alone moves: a meeting can occupy one slot without removing either note. Missing notes remain silent. Choosing an answer does not play it.</p>
       <p id="rhythm-moving-meeting-help">Every Three and Four note remains enabled. Four moves by one, two or three slots; the shared entrance lands at slot five, nine or one. A meeting is two notes at one slot, not an extra note. Use is silent and Undo restores your measure.</p>
       <p id="rhythm-rest-study-help">Three studies leave different places silent. A missing note is a rest, not a quieter note. Use changes the pattern once; Keep and Undo still belong to your own measure.</p>

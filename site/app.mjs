@@ -80,6 +80,9 @@ const studyPatterns = {
   'duet-meet-start': { a: [true, true, false], b: [true, false, true, false], offset: 0 },
   'duet-miss': { a: [true, true, false], b: [true, false, true, false], offset: 1 },
   'duet-meet-later': { a: [true, true, false], b: [true, false, true, false], offset: 4 },
+  'two-answer-offset-zero': { a: [true, true, true], b: [false, true, false, true], offset: 0 },
+  'two-answer-offset-one': { a: [true, true, true], b: [false, true, false, true], offset: 1 },
+  'two-answer-offset-two': { a: [true, true, true], b: [false, true, false, true], offset: 2 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');
@@ -816,7 +819,7 @@ studySelect.addEventListener('change', setButtons);
 studyApplyButton.addEventListener('click', () => {
   if (comparing) return;
   const candidate = studyPatterns[studySelect.value];
-  if (candidate && !samePattern(pattern, candidate)) commitPattern(clonePattern(candidate));
+  if (candidate && !samePattern(pattern, candidate)) commitPattern(clonePattern(candidate), { preserveSlot: true });
 });
 
 slider.addEventListener('input', () => changeInspection(slider.value));

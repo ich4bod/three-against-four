@@ -110,6 +110,14 @@ main [hidden] { display: none !important; }
 #rhythm-studies label, #rhythm-studies select, #rhythm-studies button { min-height: 45px; }
 #rhythm-studies select, #rhythm-studies button { font: 16px system-ui, sans-serif; }
 #rhythm-studies > p { margin-bottom: 0; }
+#rhythm-studies > #rhythm-single-meeting-help {
+  min-width: 0;
+  max-width: 100%;
+  margin: 8px 0;
+  color: #66747c;
+  font: 16px/1.5 system-ui, sans-serif;
+  overflow-wrap: anywhere;
+}
 #rhythm-studies > #rhythm-two-answer-offset-help {
   min-width: 0;
   max-width: 100%;

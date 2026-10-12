@@ -83,6 +83,9 @@ const studyPatterns = {
   'two-answer-offset-zero': { a: [true, true, true], b: [false, true, false, true], offset: 0 },
   'two-answer-offset-one': { a: [true, true, true], b: [false, true, false, true], offset: 1 },
   'two-answer-offset-two': { a: [true, true, true], b: [false, true, false, true], offset: 2 },
+  'one-meeting-first': { a: [true, true, true], b: [true, false, false, false], offset: 0 },
+  'one-meeting-middle': { a: [true, true, true], b: [true, false, false, false], offset: 4 },
+  'one-meeting-last': { a: [true, true, true], b: [true, false, false, false], offset: 8 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

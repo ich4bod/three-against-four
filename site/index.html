@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=19">
-  <script type="module" src="/app.mjs?v=34"></script>
+  <link rel="stylesheet" href="/style.css?v=20">
+  <script type="module" src="/app.mjs?v=35"></script>
 </head>
 <body>
   <main>
@@ -234,10 +234,16 @@
             <option value="two-answer-offset-one">Two answers shifted by one</option>
             <option value="two-answer-offset-two">Two answers shifted by two</option>
           </optgroup>
+          <optgroup label="One meeting, three places">
+            <option value="one-meeting-first">Four meets Three at the opening</option>
+            <option value="one-meeting-middle">Four meets Three in the middle</option>
+            <option value="one-meeting-last">Four meets Three near the end</option>
+          </optgroup>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>
       </div>
       <p id="rhythm-study-help">Replace both note masks and Four’s offset in one silent choice. Undo restores the pattern you left. An empty measure still has twelve slots.</p>
+      <p id="rhythm-single-meeting-help">Three keeps its notes at slots one, five and nine. Four keeps only its first note: offsets zero, four and eight place it at those three entrances in turn. Each measure has four notes but only three occupied slots; a meeting does not remove either voice.</p>
       <p id="rhythm-two-answer-offset-help">Three keeps all three notes. Four keeps only its second and fourth notes, so its own first note is a rest. Offsets zero, one and two move those two answers. A meeting puts two notes at one slot; it does not remove a voice. Use stays silent.</p>
       <p id="rhythm-four-note-help">Three keeps two notes and Four keeps two notes. The Four offset alone moves: a meeting can occupy one slot without removing either note. Missing notes remain silent. Choosing an answer does not play it.</p>
       <p id="rhythm-moving-meeting-help">Every Three and Four note remains enabled. Four moves by one, two or three slots; the shared entrance lands at slot five, nine or one. A meeting is two notes at one slot, not an extra note. Use is silent and Undo restores your measure.</p>

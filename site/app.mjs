@@ -86,6 +86,9 @@ const studyPatterns = {
   'one-meeting-first': { a: [true, true, true], b: [true, false, false, false], offset: 0 },
   'one-meeting-middle': { a: [true, true, true], b: [true, false, false, false], offset: 4 },
   'one-meeting-last': { a: [true, true, true], b: [true, false, false, false], offset: 8 },
+  'opposite-first': { a: [true, false, true], b: [true, false, true, false], offset: 0 },
+  'opposite-miss': { a: [true, false, true], b: [true, false, true, false], offset: 1 },
+  'opposite-last': { a: [true, false, true], b: [true, false, true, false], offset: 2 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

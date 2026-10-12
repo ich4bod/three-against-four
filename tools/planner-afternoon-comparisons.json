@@ -1,0 +1,224 @@
+{
+  "middle-two": {
+    "slug": "three-against-four",
+    "mode": "rests",
+    "lane": 17,
+    "depends": 910,
+    "title": "Three against four \u2014 Put two adjacent answers beside the middle Three note",
+    "group": "Middle call, adjacent answers",
+    "rows": [
+      [
+        "middle-two-0",
+        "Four starts 0 slots later",
+        {
+          "a": [
+            false,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "middle-two-1",
+        "Four starts 1 slots later",
+        {
+          "a": [
+            false,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "middle-two-2",
+        "Four starts 2 slots later",
+        {
+          "a": [
+            false,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            true,
+            false,
+            false
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three occupies displayed slots 5. Four occupies 1, 4. They do not meet. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 5. Four occupies 2, 5. They meet at 5. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 5. Four occupies 3, 6. They do not meet. A meeting keeps both voices; unchecked notes stay silent."
+    ],
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "picker": "rhythm-study",
+    "facts": "Twelve slots. Three base zero-based0,4,8; Four base0,3,6,9 plus offset mod12. Exact independently computed witnesses [{\"a\": [4], \"b\": [0, 3], \"meetings\": [], \"occupied\": 3, \"notes\": 3}, {\"a\": [4], \"b\": [1, 4], \"meetings\": [5], \"occupied\": 2, \"notes\": 3}, {\"a\": [4], \"b\": [2, 5], \"meetings\": [], \"occupied\": 3, \"notes\": 3}]. No tempo/hearing/voice change.",
+    "message": "middle-two choices preserve exact data silent selection and independent memory"
+  },
+  "last-full": {
+    "slug": "three-against-four",
+    "mode": "rests",
+    "lane": 17,
+    "depends": 910,
+    "title": "Three against four \u2014 Shift all Four notes past the last Three call",
+    "group": "Last call, all Four notes",
+    "rows": [
+      [
+        "last-full-0",
+        "Four starts 0 slots later",
+        {
+          "a": [
+            false,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "last-full-1",
+        "Four starts 1 slots later",
+        {
+          "a": [
+            false,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "last-full-2",
+        "Four starts 2 slots later",
+        {
+          "a": [
+            false,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three occupies displayed slots 9. Four occupies 1, 4, 7, 10. They do not meet. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 9. Four occupies 2, 5, 8, 11. They do not meet. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 9. Four occupies 3, 6, 9, 12. They meet at 9. A meeting keeps both voices; unchecked notes stay silent."
+    ],
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "picker": "rhythm-study",
+    "facts": "Twelve slots. Three base zero-based0,4,8; Four base0,3,6,9 plus offset mod12. Exact independently computed witnesses [{\"a\": [8], \"b\": [0, 3, 6, 9], \"meetings\": [], \"occupied\": 5, \"notes\": 5}, {\"a\": [8], \"b\": [1, 4, 7, 10], \"meetings\": [], \"occupied\": 5, \"notes\": 5}, {\"a\": [8], \"b\": [2, 5, 8, 11], \"meetings\": [9], \"occupied\": 4, \"notes\": 5}]. No tempo/hearing/voice change.",
+    "message": "last-full choices preserve exact data silent selection and independent memory"
+  },
+  "two-calls-one": {
+    "slug": "three-against-four",
+    "mode": "rests",
+    "lane": 17,
+    "depends": 910,
+    "title": "Three against four \u2014 Move one answer between the opening and middle calls",
+    "group": "Opening and middle, one answer",
+    "rows": [
+      [
+        "two-calls-one-0",
+        "Four starts 0 slots later",
+        {
+          "a": [
+            true,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "two-calls-one-1",
+        "Four starts 1 slots later",
+        {
+          "a": [
+            true,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "two-calls-one-2",
+        "Four starts 2 slots later",
+        {
+          "a": [
+            true,
+            true,
+            false
+          ],
+          "b": [
+            true,
+            false,
+            false,
+            false
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three occupies displayed slots 1, 5. Four occupies 1. They meet at 1. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 1, 5. Four occupies 2. They do not meet. A meeting keeps both voices; unchecked notes stay silent.",
+      "Three occupies displayed slots 1, 5. Four occupies 3. They do not meet. A meeting keeps both voices; unchecked notes stay silent."
+    ],
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "picker": "rhythm-study",
+    "facts": "Twelve slots. Three base zero-based0,4,8; Four base0,3,6,9 plus offset mod12. Exact independently computed witnesses [{\"a\": [0, 4], \"b\": [0], \"meetings\": [1], \"occupied\": 2, \"notes\": 3}, {\"a\": [0, 4], \"b\": [1], \"meetings\": [], \"occupied\": 3, \"notes\": 3}, {\"a\": [0, 4], \"b\": [2], \"meetings\": [], \"occupied\": 3, \"notes\": 3}]. No tempo/hearing/voice change.",
+    "message": "two-calls-one choices preserve exact data silent selection and independent memory"
+  }
+}

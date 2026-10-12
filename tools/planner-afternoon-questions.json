@@ -1,0 +1,68 @@
+{
+  "slug": "three-against-four",
+  "lane": 17,
+  "title": "Three against four \u2014 Ask whether a meeting adds a note or removes a silence",
+  "id": "three-questions-three-against-four",
+  "summary": "Questions about notes and meetings",
+  "lead": "A slot is a place in the measure. A note belongs to a voice. Keep those two counts separate while you change the checked notes and Four\u2019s offset.",
+  "questions": [
+    {
+      "title": "Are there six notes or seven?",
+      "prompt": "Enable all three Three notes and all four Four notes. Set Four\u2019s offset to zero. Read the twelve-slot census before playing one measure.",
+      "answer": "There are seven notes at six occupied slots. Both voices enter at slot 1, so that one place holds two notes. The other five occupied slots each hold one. A shared entrance does not remove either voice."
+    },
+    {
+      "title": "What does an offset move?",
+      "prompt": "Keep the complete pattern. Change Four\u2019s offset from zero to one. Compare every slot with the kept measure. Where does the shared entrance go?",
+      "answer": "It moves from slot 1 to slot 5. Three remains at slots 1, 5 and 9; Four moves to 2, 5, 8 and 11. The kept column still uses its own offset. Seven notes remain seven notes."
+    },
+    {
+      "title": "Is a missing note a softer note?",
+      "prompt": "Uncheck one Four note and play a finite measure. If you want a visual answer first, inspect the slot where that note used to arrive.",
+      "answer": "It is a rest. The removed voice does not sound at that entrance, and the remaining notes are not amplified to compensate. At a shared entrance, removing Four can leave Three there without making the slot silent."
+    },
+    {
+      "title": "Can fewer occupied slots still contain the same notes?",
+      "prompt": "Compare the middle Three note with two Four answers at offsets zero and one. Read note count and occupied slots separately.",
+      "answer": "Offset zero has three notes at three slots. Offset one makes one shared entrance: three notes now occupy two slots. Both voices still sound at that meeting; moving an entrance does not delete a note."
+    },
+    {
+      "title": "Must a complete Four voice meet the last Three call?",
+      "prompt": "Keep only the last Three note and all four Four notes. Compare offsets zero, one and two.",
+      "answer": "Only offset two meets that last call, at displayed slot 9. Four remains complete in every comparison. Note count alone does not say where the entrances coincide."
+    },
+    {
+      "title": "Does a study change the pace you chose?",
+      "prompt": "Set a comfortable pace, keep a measure, then apply a sparse-answer study without playing.",
+      "answer": "The study changes checked notes and Four's offset. It preserves the chosen tempo, inspected slot and sound settings, and applying stays silent. A changed rhythm is not permission to start a new performance."
+    }
+  ],
+  "facts": "Basezero slotsThree0/4/8 Four0/3/6/9 offsetmod12. Offset0 union6 notes7; offset1Four1/4/7/10 shared4 display5. All mathematics existingmodel.",
+  "palette": "#f3eddd/#24384a/#b94b40/#245aa4",
+  "files": [
+    "site/index.html",
+    "site/style.css"
+  ],
+  "root": "main",
+  "anchor": "footer",
+  "url": "https://three-against-four.ichabod-crane.net/",
+  "message": "six three-against-four questions keep their answers optional and leave the experiment unchanged",
+  "oldSummary": "Try three questions about notes and meetings",
+  "appendQuestions": [
+    {
+      "title": "Can fewer occupied slots still contain the same notes?",
+      "prompt": "Compare the middle Three note with two Four answers at offsets zero and one. Read note count and occupied slots separately.",
+      "answer": "Offset zero has three notes at three slots. Offset one makes one shared entrance: three notes now occupy two slots. Both voices still sound at that meeting; moving an entrance does not delete a note."
+    },
+    {
+      "title": "Must a complete Four voice meet the last Three call?",
+      "prompt": "Keep only the last Three note and all four Four notes. Compare offsets zero, one and two.",
+      "answer": "Only offset two meets that last call, at displayed slot 9. Four remains complete in every comparison. Note count alone does not say where the entrances coincide."
+    },
+    {
+      "title": "Does a study change the pace you chose?",
+      "prompt": "Set a comfortable pace, keep a measure, then apply a sparse-answer study without playing.",
+      "answer": "The study changes checked notes and Four's offset. It preserves the chosen tempo, inspected slot and sound settings, and applying stays silent. A changed rhythm is not permission to start a new performance."
+    }
+  ]
+}

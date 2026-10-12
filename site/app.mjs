@@ -77,6 +77,9 @@ const studyPatterns = {
   'meeting-five': { a: [true, true, true], b: [true, true, true, true], offset: 1 },
   'meeting-nine': { a: [true, true, true], b: [true, true, true, true], offset: 2 },
   'meeting-one': { a: [true, true, true], b: [true, true, true, true], offset: 3 },
+  'duet-meet-start': { a: [true, true, false], b: [true, false, true, false], offset: 0 },
+  'duet-miss': { a: [true, true, false], b: [true, false, true, false], offset: 1 },
+  'duet-meet-later': { a: [true, true, false], b: [true, false, true, false], offset: 4 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

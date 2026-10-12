@@ -1,0 +1,68 @@
+{
+  "slug": "three-against-four",
+  "mode": "rests",
+  "lane": 17,
+  "title": "Three against four — Let two opposite answers meet the first or last Three note",
+  "group": "Two answers across a gap",
+  "helpID": "rhythm-opposite-answers-help",
+  "help": "Three leaves its middle note silent. Four keeps two notes six slots apart. Offset zero meets the first Three note, one misses both, and two meets the last. A meeting keeps both voices; an unchecked note remains a rest.",
+  "rows": [
+    [
+      "opposite-first",
+      "Opposite answers meet the opening",
+      {
+        "a": [
+          true,
+          false,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 0
+      }
+    ],
+    [
+      "opposite-miss",
+      "Opposite answers miss both calls",
+      {
+        "a": [
+          true,
+          false,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 1
+      }
+    ],
+    [
+      "opposite-last",
+      "Opposite answers meet the last call",
+      {
+        "a": [
+          true,
+          false,
+          true
+        ],
+        "b": [
+          true,
+          false,
+          true,
+          false
+        ],
+        "offset": 2
+      }
+    ]
+  ],
+  "depends": "nothing",
+  "message": "rests experiments keep their distinct rules and exact supplied choices",
+  "facts": "Zero-based Three slots0,8. Four slots0,6 then1,7 then2,8. Display is one-based1/7,2/8,3/9. Four notes per measure with occupied counts3/4/3; one/zero/one meetings."
+}

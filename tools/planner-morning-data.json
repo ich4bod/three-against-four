@@ -1,0 +1,73 @@
+{
+  "study": {
+    "mode": "rests",
+    "group": "Two calls, two answers",
+    "rows": [
+      [
+        "two-two-0",
+        "Two pairs, no shift",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            false,
+            true,
+            false,
+            true
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "two-two-1",
+        "Two pairs, one-slot shift",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            false,
+            true,
+            false,
+            true
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "two-two-2",
+        "Two pairs, two-slot shift",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            false,
+            true,
+            false,
+            true
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three occupies displayed slots 1 and 9; Four occupies 4 and 10. Four notes occupy four distinct slots.",
+      "Three stays at displayed slots 1 and 9; Four moves to 5 and 11. Four notes still occupy four distinct slots.",
+      "Three stays at displayed slots 1 and 9; Four moves to 6 and 12. Four notes still occupy four distinct slots. None of these three shifts creates a meeting."
+    ],
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "picker": "rhythm-study",
+    "facts": "BaseThree0,4,8; Four0,3,6,9 plusoffsetmod12. Eachrow4notes4occupiedslots0meetings. More offset is not guaranteed to create a meeting.",
+    "dep": 936,
+    "message": "rests histories keep their authored relationship and independent memory"
+  }
+}

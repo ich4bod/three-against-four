@@ -75,6 +75,9 @@ const choiceNotes = {
   'two-calls-one-0': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 1. They meet at 1. A meeting keeps both voices; unchecked notes stay silent.',
   'two-calls-one-1': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 2. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
   'two-calls-one-2': 'About the selected choice: Three occupies displayed slots 1, 5. Four occupies 3. They do not meet. A meeting keeps both voices; unchecked notes stay silent.',
+  'two-two-0': 'About the selected choice: Three occupies displayed slots 1 and 9; Four occupies 4 and 10. Four notes occupy four distinct slots.',
+  'two-two-1': 'About the selected choice: Three stays at displayed slots 1 and 9; Four moves to 5 and 11. Four notes still occupy four distinct slots.',
+  'two-two-2': 'About the selected choice: Three stays at displayed slots 1 and 9; Four moves to 6 and 12. Four notes still occupy four distinct slots. None of these three shifts creates a meeting.',
 };
 function updateSelectedChoiceNote() {
   choiceNote.textContent = choiceNotes[studySelect.value] ?? 'Other choices keep their existing descriptions.';
@@ -116,6 +119,9 @@ const studyPatterns = {
   'two-calls-one-0': { a: [true, true, false], b: [true, false, false, false], offset: 0 },
   'two-calls-one-1': { a: [true, true, false], b: [true, false, false, false], offset: 1 },
   'two-calls-one-2': { a: [true, true, false], b: [true, false, false, false], offset: 2 },
+  'two-two-0': { a: [true, false, true], b: [false, true, false, true], offset: 0 },
+  'two-two-1': { a: [true, false, true], b: [false, true, false, true], offset: 1 },
+  'two-two-2': { a: [true, false, true], b: [false, true, false, true], offset: 2 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

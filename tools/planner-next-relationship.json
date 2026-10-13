@@ -1,0 +1,73 @@
+{
+  "rests": {
+    "mode": "rests",
+    "group": "Two calls and two separated answers",
+    "rows": [
+      [
+        "two-separated-first",
+        "Meet the first call",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            false,
+            true,
+            false
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "two-separated-none",
+        "Miss both calls",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            false,
+            true,
+            false
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "two-separated-last",
+        "Meet the last call",
+        {
+          "a": [
+            true,
+            false,
+            true
+          ],
+          "b": [
+            true,
+            false,
+            true,
+            false
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three calls at base slots zero and eight; Four answers at zero and six. Four sounded notes occupy three slots, sharing the first call.",
+      "Move Four to base slots one and seven. Four notes now occupy four separate slots; neither call meets an answer.",
+      "Move Four to base slots two and eight. Four notes occupy three slots again, this time sharing the last call."
+    ],
+    "facts": "Base slots0..11, displayed1..12. Three0/8; Four0/6,1/7,2/8. Shared0/none/8, occupied3/4/3, sounded notes4each. Only offsets and masks change.",
+    "dep": 936,
+    "picker": "rhythm-study",
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "message": "rests comparisons keep exact choices silent and reversible"
+  }
+}

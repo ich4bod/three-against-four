@@ -1,0 +1,76 @@
+{
+  "rests": {
+    "mode": "rests",
+    "picker": "rhythm-study",
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "slug": "three-against-four",
+    "lane": 17,
+    "title": "Three against four — Shift four notes to every possible kind of meeting",
+    "group": "Four offsets, one meeting each",
+    "rows": [
+      [
+        "full-offset-0",
+        "All notes, offset 0",
+        {
+          "a": [
+            true,
+            true,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 0
+        }
+      ],
+      [
+        "full-offset-1",
+        "All notes, offset 1",
+        {
+          "a": [
+            true,
+            true,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 1
+        }
+      ],
+      [
+        "full-offset-2",
+        "All notes, offset 2",
+        {
+          "a": [
+            true,
+            true,
+            true
+          ],
+          "b": [
+            true,
+            true,
+            true,
+            true
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "All three and all four notes remain. At offset zero the voices meet at slot one. Seven notes occupy six distinct slots.",
+      "The four-note voice moves one slot forward. Its meeting with Three is now at slot five; seven notes still occupy six slots.",
+      "Moving Four two slots puts the meeting at slot nine. The shared slot moves, but it never merges the two voices into one note."
+    ],
+    "facts": "Zero-based Three slots0,4,8; Four(k) slots(k+3*j)%12,j0..3. Offsets0/1/2 produce one intersection at0/4/8, six occupied slots and seven enabled notes. Visitor slots are one-based. Preserve tempo, voices, hearing focus, count and playback; Apply creates one undoable edit.",
+    "dep": 960,
+    "message": "rests afternoon relationships preserve exact choices and independent memory"
+  }
+}

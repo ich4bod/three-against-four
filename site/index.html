@@ -19,45 +19,6 @@
         <g id="rhythm-labels" aria-hidden="true"></g>
         <g id="rhythm-markers"></g>
       </svg>
-      <div class="inspection">
-        <label for="rhythm-slot">Slot to inspect</label>
-        <input id="rhythm-slot" type="range" min="0" max="11" step="1" value="0">
-      </div>
-      <p id="rhythm-now">Slot 1: both.</p>
-      <div class="buttons">
-        <button id="rhythm-previous-event" type="button">Previous note slot</button>
-        <button id="rhythm-next-event" type="button">Next note slot</button>
-        <button id="rhythm-next-meeting" type="button">Next together slot</button>
-      </div>
-      <p id="rhythm-events">Note slots: 1, 4, 5, 7, 9, 10.</p>
-      <p id="rhythm-current-meetings">Together slots: 1.</p>
-      <p id="rhythm-walk-help">These buttons move the inspection, not the notes. Together means both rhythms have a note in the same slot.</p>
-      <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
-      <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
-      <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
-      <details id="rhythm-gaps">
-        <summary>Follow the spaces</summary>
-        <p id="rhythm-next-a"></p>
-        <p id="rhythm-next-b"></p>
-        <p id="rhythm-gaps-a"></p>
-        <p id="rhythm-gaps-b"></p>
-        <h3 id="rhythm-combined-gaps-heading"></h3>
-        <table id="rhythm-combined-gaps">
-          <thead><tr><th></th><th></th><th></th><th></th></tr></thead>
-          <tbody></tbody>
-        </table>
-        <p id="rhythm-combined-gaps-empty" hidden></p>
-        <p id="rhythm-combined-gaps-help"></p>
-        <p id="rhythm-gaps-help">Count from one played note to the next, including the wrap into the next measure. A single note leaves twelve slots between appearances.</p>
-      </details>
-    </section>
-    <details id="rhythm-flat-reader">
-      <summary>Lay the measure flat</summary>
-      <svg id="rhythm-flat" viewBox="0 0 400 100" aria-hidden="true">
-        <line id="rhythm-flat-cursor" x1="22" x2="22" y1="12" y2="88"></line>
-      </svg>
-      <p id="rhythm-flat-help">Left to right is one measure. The top row is three; the bottom row is four. Outlines are notes left out. The line is the slot being inspected.</p>
-    </details>
     <section class="transport" aria-label="Play one measure">
       <h2>One measure</h2>
       <details id="rhythm-play-choices">
@@ -113,6 +74,45 @@
         <p id="rhythm-play-help">Sound starts off. Choose a finite number of measures. Pause keeps your place across their boundaries; changing the count stops the clock.</p>
       </details>
     </section>
+      <div class="inspection">
+        <label for="rhythm-slot">Slot to inspect</label>
+        <input id="rhythm-slot" type="range" min="0" max="11" step="1" value="0">
+      </div>
+      <p id="rhythm-now">Slot 1: both.</p>
+      <div class="buttons">
+        <button id="rhythm-previous-event" type="button">Previous note slot</button>
+        <button id="rhythm-next-event" type="button">Next note slot</button>
+        <button id="rhythm-next-meeting" type="button">Next together slot</button>
+      </div>
+      <p id="rhythm-events">Note slots: 1, 4, 5, 7, 9, 10.</p>
+      <p id="rhythm-current-meetings">Together slots: 1.</p>
+      <p id="rhythm-walk-help">These buttons move the inspection, not the notes. Together means both rhythms have a note in the same slot.</p>
+      <p id="rhythm-a-slots">Three plays slots: 1, 5, 9.</p>
+      <p id="rhythm-b-slots">Four plays slots: 1, 4, 7, 10.</p>
+      <p id="rhythm-rule">Both rhythms fill the same measure. Three leaves four slots between notes; four leaves three.</p>
+      <details id="rhythm-gaps">
+        <summary>Follow the spaces</summary>
+        <p id="rhythm-next-a"></p>
+        <p id="rhythm-next-b"></p>
+        <p id="rhythm-gaps-a"></p>
+        <p id="rhythm-gaps-b"></p>
+        <h3 id="rhythm-combined-gaps-heading"></h3>
+        <table id="rhythm-combined-gaps">
+          <thead><tr><th></th><th></th><th></th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <p id="rhythm-combined-gaps-empty" hidden></p>
+        <p id="rhythm-combined-gaps-help"></p>
+        <p id="rhythm-gaps-help">Count from one played note to the next, including the wrap into the next measure. A single note leaves twelve slots between appearances.</p>
+      </details>
+    </section>
+    <details id="rhythm-flat-reader">
+      <summary>Lay the measure flat</summary>
+      <svg id="rhythm-flat" viewBox="0 0 400 100" aria-hidden="true">
+        <line id="rhythm-flat-cursor" x1="22" x2="22" y1="12" y2="88"></line>
+      </svg>
+      <p id="rhythm-flat-help">Left to right is one measure. The top row is three; the bottom row is four. Outlines are notes left out. The line is the slot being inspected.</p>
+    </details>
     <section class="editor-section">
       <details id="rhythm-editor">
         <summary>Change the pattern</summary>

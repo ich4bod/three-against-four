@@ -81,6 +81,9 @@ const choiceNotes = {
   'two-separated-first': 'About the selected choice: Three calls at base slots zero and eight; Four answers at zero and six. Four sounded notes occupy three slots, sharing the first call.',
   'two-separated-none': 'About the selected choice: Move Four to base slots one and seven. Four notes now occupy four separate slots; neither call meets an answer.',
   'two-separated-last': 'About the selected choice: Move Four to base slots two and eight. Four notes occupy three slots again, this time sharing the last call.',
+  'slot-nine-three': 'About the selected choice: Three alone occupies slot nine. One note uses one occupied slot; the other voice is silent.',
+  'slot-nine-four': 'About the selected choice: Four alone occupies the same slot nine because its third note is shifted two slots. The occupied place stays put while the voice changes.',
+  'slot-nine-together': 'About the selected choice: Three and Four meet at slot nine. Two notes still occupy only one slot; counting entrances is not counting distinct places.',
 };
 function updateSelectedChoiceNote() {
   choiceNote.textContent = choiceNotes[studySelect.value] ?? 'Other choices keep their existing descriptions.';
@@ -128,6 +131,9 @@ const studyPatterns = {
   'two-separated-first': { a: [true, false, true], b: [true, false, true, false], offset: 0 },
   'two-separated-none': { a: [true, false, true], b: [true, false, true, false], offset: 1 },
   'two-separated-last': { a: [true, false, true], b: [true, false, true, false], offset: 2 },
+  'slot-nine-three': { a: [false, false, true], b: [false, false, false, false], offset: 2 },
+  'slot-nine-four': { a: [false, false, false], b: [false, false, true, false], offset: 2 },
+  'slot-nine-together': { a: [false, false, true], b: [false, false, true, false], offset: 2 },
 };
 const keptEmpty = document.querySelector('#rhythm-kept-empty');
 const keptBody = document.querySelector('#rhythm-kept-body');

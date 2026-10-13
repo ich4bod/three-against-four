@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3eddd">
   <title>Three against four</title>
-  <link rel="stylesheet" href="/style.css?v=22">
-  <script type="module" src="/app.mjs?v=40"></script>
+  <link rel="stylesheet" href="/style.css?v=23">
+  <script type="module" src="/app.mjs?v=41"></script>
 </head>
 <body>
   <main>
@@ -268,6 +268,11 @@
             <option value="two-separated-first">Meet the first call</option>
             <option value="two-separated-none">Miss both calls</option>
             <option value="two-separated-last">Meet the last call</option>
+          </optgroup>
+          <optgroup label="One occupied slot, two possible voices">
+            <option value="slot-nine-three">Only Three at slot nine</option>
+            <option value="slot-nine-four">Only Four at slot nine</option>
+            <option value="slot-nine-together">Both voices at slot nine</option>
           </optgroup>
         </select>
         <button id="rhythm-study-apply" type="button">Use this pattern</button>

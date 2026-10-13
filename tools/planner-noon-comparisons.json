@@ -1,0 +1,73 @@
+{
+  "rests": {
+    "mode": "rests",
+    "group": "One occupied slot, two possible voices",
+    "rows": [
+      [
+        "slot-nine-three",
+        "Only Three at slot nine",
+        {
+          "a": [
+            false,
+            false,
+            true
+          ],
+          "b": [
+            false,
+            false,
+            false,
+            false
+          ],
+          "offset": 2
+        }
+      ],
+      [
+        "slot-nine-four",
+        "Only Four at slot nine",
+        {
+          "a": [
+            false,
+            false,
+            false
+          ],
+          "b": [
+            false,
+            false,
+            true,
+            false
+          ],
+          "offset": 2
+        }
+      ],
+      [
+        "slot-nine-together",
+        "Both voices at slot nine",
+        {
+          "a": [
+            false,
+            false,
+            true
+          ],
+          "b": [
+            false,
+            false,
+            true,
+            false
+          ],
+          "offset": 2
+        }
+      ]
+    ],
+    "notes": [
+      "Three alone occupies slot nine. One note uses one occupied slot; the other voice is silent.",
+      "Four alone occupies the same slot nine because its third note is shifted two slots. The occupied place stays put while the voice changes.",
+      "Three and Four meet at slot nine. Two notes still occupy only one slot; counting entrances is not counting distinct places."
+    ],
+    "facts": "Three slot indices[0,4,8],Four[0,3,6,9] plusoffset modulo12; slot labelsindex+1. All union[8]; counts1,1,2; meetingnone,none,[8]. Tempo/finite measures/hearing/voice synthesis unchanged.",
+    "dep": 936,
+    "picker": "rhythm-study",
+    "noteID": "choice-note-three-against-four",
+    "noteLead": "About the selected choice: ",
+    "message": "rests noon comparisons preserve exact choices silent selection and independent memory"
+  }
+}
